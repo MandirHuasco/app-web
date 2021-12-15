@@ -1,0 +1,548 @@
+.App {
+  text-align: center;
+  background-image: url("img/img-002.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  align-items: center;
+}
+.App-prin {
+  text-align: center;
+  background-image: url("img/img-004.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  align-items: center;
+}
+.background-image{
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  background-image: url("img/img-001.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  filter: brightness(0.5);
+}
+.background-image-prin{
+  background-image: url("img/img-003.jpg");
+}
+.cont-sub-prin{
+  width: 900px;
+  display: block;
+  position: relative;
+  margin: auto;
+}
+.prin-total{
+  width: 100%;
+  display: inline-block;
+  margin: 100px auto;
+}
+.money-icon{
+  margin: auto;
+  padding: 10px;
+  border-radius: 50%;
+  background: #86a88b;
+  font-size: 30px;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: 5px;
+}
+.display-flex-money{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #fff;
+}
+.cont-ticket{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ticket{
+  padding: 20px;
+  display: block;
+  font-size: 32px;
+  color: #a97b3d;
+  transform: rotate(135deg);
+}
+.ticket-nro{
+  font-size: 32px;
+  color: #fff;
+  letter-spacing: 5px;
+}
+.total-money{
+  padding: 20px;
+  font-size: 50px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 5px;
+}
+.sub-background{
+  margin: auto;
+  background-image: url("img/stars.png");
+  background-size: cover;
+}
+.image-01{
+  height: 600px;
+  width: 600px;
+  animation: App-logo-spin infinite 20s linear;
+}
+.image-02{
+  height: 300px;
+  width: 300px;
+  animation: App-logo-spin infinite 10s linear;
+}
+.image-03{
+  height: 200px;
+  width: 200px;
+  animation: App-logo-cube infinite 5s linear;
+}
+/*------FORM------*/
+.cont-form{
+  position: relative;
+  padding: 50px;
+}
+.mini-logo-01{
+  width: 260px;
+  margin: auto;
+  padding: 20px;
+}
+.img-mini-logo-01{
+  width: 100%;
+  filter: drop-shadow(2px 4px 6px black);
+}
+/*------INPUT------*/
+.cont-form-sub{
+  width: 500px;
+  margin: auto;
+  padding: 20px;
+}
+.input-form{
+  width: 400px;
+  margin: 20px auto;
+}
+.email-form{
+  width: 400px;
+  color: #fff;
+  background: #fff0;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #76b6e5;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 5px;
+  filter: drop-shadow(2px 4px 6px #000);
+  transition: 0.4s ease-in-out;
+}
+.email-form:focus{
+  outline: none;
+  filter: drop-shadow(2px 4px 6px #fff);
+}
+.email-form::placeholder{
+  color: #c0c0c0;
+  font-size: 20px;
+}
+.pass-form{
+  width: 400px;
+  color: #fff;
+  background: #fff0;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #76b6e5;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 5px;
+  filter: drop-shadow(2px 4px 6px #000);
+  transition: 0.4s ease-in-out;
+}
+.pass-form:focus{
+  outline: none;
+  filter: drop-shadow(2px 4px 6px #fff);
+}
+.pass-form::placeholder{
+  color: #c0c0c0;
+  font-size: 20px;
+}
+.eye{
+  font-size: 32px;
+  color: #fff;
+}
+.eye:hover{
+  color: #00fcb6;
+  cursor: pointer;
+}
+.check-form{
+  position: relative;
+  width: 120px;
+  height: 40px;
+  appearance: none;
+  background: linear-gradient(0deg, #33333336, #00000024);
+  outline: none;
+  border-radius: 20px;
+  box-shadow: 0 0 0 4px #76b6e5,
+              0 0 0 5px #3e3e3e,
+              inset 0 0 10px
+              rgba(0,0,0,1), 0 5px 20px rgba(0,0,0,.5),
+              inset 0 0 15px rgba(0,0,0,.2);
+}
+input:checked.check-form{
+  background: linear-gradient(0deg, #63cdff, #20b7ff);
+  box-shadow: 0 0 2px #6dd1ff,
+              0 0 0 4px #76b6e5,
+              0 0 0 5px #3e3e3e,
+              inset 0 0 10px
+              rgba(0,0,0,1), 0 5px 20px rgba(0,0,0,.5),
+              inset 0 0 15px rgba(0,0,0,.2);
+}
+.check-form:before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 40px;
+  background: linear-gradient(0deg, #1464a3, #0e96ff);
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px #232323;
+  transform: scale(.98,.96);
+  transition: .4s;
+}
+input:checked.check-form:before{
+  left: 40px;
+}
+.check-form:after{
+  content: '';
+  position: absolute;
+  top: calc(50% - 2px);
+  left: 65px;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(0deg, #6b6b6b, #000);
+  border-radius: 50%;
+  transition: .4s;
+}
+input:checked.check-form:after{
+  background: #63cdff;
+  left: 105px;
+  box-shadow: 0 0 5px #13b3ff, 0 0 15px #13b3ff;
+}
+.label-check{
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 5px;
+  padding: 20px;
+}
+.check-align{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.submit-form{
+  width: 100%;
+  color: #fff;
+  background: #1464a3;
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 5px;
+  filter: drop-shadow(2px 4px 6px #000);
+  transition: .4s;
+}
+.submit-form:hover{
+  color: #41207c;
+  filter: drop-shadow(2px 4px 6px #000);
+  background: #0e8ff3;
+}
+.error-report{
+  color: #fff;
+  font-size: 16px;
+  background: #12006b78;
+  padding: 20px;
+  border-radius: 20px;
+  letter-spacing: 5px;
+}
+.exclamation{
+  padding: 10px;
+}
+.box-prin{
+  width: 600px;
+  padding: 20px;
+  margin: auto;
+  border-radius: 40px;
+  color: #aaa4a4;
+  background: #000000a6;
+  border: 1px solid #3c3356;
+}
+.table-cont{
+  margin: auto;
+}
+.ticket-icon{
+  padding: 20px;
+}
+.cantidad-ticket{
+  padding: 20px;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+.precio-ticket{
+  padding: 20px;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+.ticket-img{
+  width: 70px;
+}
+.fecha-ticket{
+  color: #fff;
+  font-weight: 800;
+  padding: 20px;
+  letter-spacing: 5px;
+  font-size: 16px;
+  border-top: 1px double #367332;
+  border-radius: 20px;
+}
+.historial-text{
+  color: #fff;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+.margin-top-20{
+  margin-top: 20px;
+}
+.fecha-hist-head{
+  color: #fff;
+  padding: 20px;
+  letter-spacing: 5px;
+  font-size: 20px;
+  border-bottom: 1px double #367332;
+}
+.fecha-hist{
+  padding: 10px;
+  letter-spacing: 5px;
+  font-size: 16px;
+}
+.button-fin{
+  width: 50%;
+}
+.button-fecha{
+  width: 100%;
+  color: #fff;
+  background: #323a81;
+  cursor: pointer;
+  border-radius: 20px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 5px;
+  filter: drop-shadow(2px 4px 6px #000);
+  transition: .4s;
+}
+.button-fecha:hover{
+  color: #41207c;
+  filter: drop-shadow(2px 4px 6px #000);
+  background: #0e8ff3;
+}
+.bg-fin{
+  background: #fff6;
+}
+.img-home{
+  width: 80%;
+  display: block;
+  margin: auto;
+  padding: 40px;
+}
+.btn-close{
+  top: 0;
+  position: absolute;
+  right: 0;
+  padding: 20px !important;
+  font-size: initial;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 1px 0 #fff;
+}
+.modal-header{
+  display: block;
+}
+.p-modal{
+  color: #727272;
+  font-size: .875rem;
+  font-weight: normal;
+  text-align: center;
+}
+.span-modal{
+  font-weight: 800;
+  color: #e56d34;
+}
+.submit-form-modal{
+  background: #353535;
+  filter: none;
+}
+.submit-form-modal:hover{
+  color: #fff;
+  background: #e17610;
+  filter: drop-shadow(2px 4px 6px black);
+}
+.modal-footer{
+  display: block !important;
+}
+.span-footer{
+  letter-spacing: 5px;
+  font-weight: 500;
+  color: #6c6c6c;
+}
+@keyframes App-logo-spin {
+  from {
+  transform: rotate(0deg);
+  }
+  to {
+  transform: rotate(360deg);
+  }
+}
+@media only screen and (max-width: 930px) {
+  .prin-total{
+    margin: 50px auto;
+  }
+  .cont-sub-prin{
+    width: 100%;
+  }
+  .box-prin{
+   width: 80%;
+  }
+  .ticket{
+    font-size: 24px;
+  }
+  .ticket-nro{
+    font-size: 24px;
+  }
+  .total-money{
+    font-size: 30px;
+  }
+  .cantidad-ticket{
+    font-size: 16px;
+  }
+  .precio-ticket{
+    font-size: 16px;
+  }
+  .image-01{
+    height: 300px;
+    width: 300px;
+  }
+  .image-02{
+    height: 150px;
+    width: 150px;
+  }
+  .mini-logo-01{
+    width: 180px;
+  }
+  .cont-form-sub{
+    width: 80%;
+    padding: 0;
+  }
+  .input-form{
+    width: 100%;
+  }
+  .email-form{
+    width: 100%;
+  }
+  .pass-form{
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .fecha-ticket{
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .ticket-icon{
+    padding: 20px 0;
+  }
+  .cantidad-ticket{
+    font-size: 14px;
+    padding: 20px 10px;
+    letter-spacing: initial;
+  }
+  .precio-ticket{
+    font-size: 14px;
+    padding: 20px 10px;
+    letter-spacing: initial;
+  }
+  .ticket-img{
+    width: 50px;
+  }
+  .cont-form{
+    padding: 0;
+  }
+  .image-01{
+    height: 200px;
+    width: 200px;
+  }
+  .image-02{
+    height: 100px;
+    width: 100px;
+  }
+  .mini-logo-01{
+    width: 50%;
+  }
+  .email-form{
+    font-size: 1rem;
+  }
+  .pass-form{
+    font-size: 1rem;
+  }
+  .email-form::placeholder{
+    font-size: 1rem;
+  }
+  .pass-form::placeholder{
+    font-size: 1rem;
+  }
+  .label-check{
+    font-size: .8rem;
+  }
+  .check-align{
+    display: block;
+  }
+  .check-form{
+    display: block;
+    margin: 20px auto;
+  }
+  .error-report{
+    font-size: .8rem;
+  }
+  .historial-text{
+    font-size: 16px;
+  }
+  .fecha-hist-head{
+    font-size: 16px;
+    padding: 20px 10px;
+  }
+  .fecha-hist{
+    font-size: 14px;
+    letter-spacing: initial;
+  }
+  .button-fecha{
+    font-size: 14px;
+  }
+  .img-home{
+    padding: 40px 0;
+  }
+  .submit-form-modal{
+    font-size: 14px;
+    padding: 8px 18px;
+  }
+  .p-modal-footer{
+    font-size: .7rem;
+  }
+}
