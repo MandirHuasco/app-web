@@ -374,7 +374,7 @@ input:checked.check-form:after{
   text-shadow: 0 1px 0 #fff;
 }
 .modal-header{
-  display: block;
+  display: block !important;
 }
 .p-modal{
   color: #727272;
@@ -402,6 +402,79 @@ input:checked.check-form:after{
   letter-spacing: 5px;
   font-weight: 500;
   color: #6c6c6c;
+}
+.estado-caja{
+  padding: 20px;
+}
+.led-enable{
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 8%, rgb(50 232 227) 70%);
+  box-shadow: 1px 1px 18px rgb(140 255 0);
+}
+.led-disabled{
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  background: radial-gradient(ellipse at center, rgb(0 0 0) 8%, rgb(66 66 66) 70%);
+  border-radius: 50%;
+  border: 2px solid #a7a7a7;
+}
+.caja-cont{
+  padding: 10px;
+  width: 200px;
+}
+.caja{
+  display: flex;
+}
+.caja-led{
+  margin: auto 20px;
+  padding: 10px;
+}
+.tr-ticket{
+  cursor: pointer;
+  width: 100%;
+  filter: brightness(0.7);
+  transition: .4s;
+}
+.tr-ticket:hover{
+  filter: none;
+  color: #fff;
+}
+.display-contents{
+  display: contents;
+  color: #aaa4a4;
+  text-decoration: none;
+}
+.table-cont-modal{
+  margin: auto;
+  text-align: center;
+  background: #e4e4e4;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-radius: 20px;
+}
+.tr-head-modal{
+  background: #7d7d7d;
+  color: #fff;
+}
+.cell-modal{
+  padding: 10px;
+}
+.bg-estado{
+  background: #464646;
+}
+.enabled-div{
+  display: none;
+}
+.caja-cont{
+  filter: brightness(0.5);
+}
+.bg-transparent-white{
+  background: #ffffff47;
+  filter: drop-shadow(2px 4px 6px black);
 }
 @keyframes App-logo-spin {
   from {
@@ -431,10 +504,10 @@ input:checked.check-form:after{
     font-size: 30px;
   }
   .cantidad-ticket{
-    font-size: 16px;
+    font-size: 14px;
   }
   .precio-ticket{
-    font-size: 16px;
+    font-size: 14px;
   }
   .image-01{
     height: 300px;
@@ -460,6 +533,12 @@ input:checked.check-form:after{
   .pass-form{
     width: 100%;
   }
+  .caja-led{
+    font-size: 14px;
+  }
+  .caja-cont{
+    width: 150px;
+  }
 }
 @media only screen and (max-width: 500px) {
   .fecha-ticket{
@@ -470,12 +549,10 @@ input:checked.check-form:after{
     padding: 20px 0;
   }
   .cantidad-ticket{
-    font-size: 14px;
     padding: 20px 10px;
     letter-spacing: initial;
   }
   .precio-ticket{
-    font-size: 14px;
     padding: 20px 10px;
     letter-spacing: initial;
   }
@@ -544,5 +621,28 @@ input:checked.check-form:after{
   }
   .p-modal-footer{
     font-size: .7rem;
+  }
+  .caja-cont{
+    width: 120px;
+  }
+  .disabled-tr{
+    display: none;
+  }
+  .enabled-div{
+    display: initial;
+  }
+  .led-disabled{
+    width: 10px;
+    height: 10px;
+  }
+  .led-enable{
+    width: 10px;
+    height: 10px;
+  }
+  .disabled-td{
+    display: none;
+  }
+  .caja{
+    padding: 0;
   }
 }
