@@ -5,7 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import App from "./App.js";
-import Page2 from "./Principal";
+import Page2 from "./Vistas/Principal";
 
 ReactDOM.render(
     <Router>

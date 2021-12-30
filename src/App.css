@@ -123,7 +123,7 @@
 .email-form{
   width: 400px;
   color: #fff;
-  background: #fff0;
+  background: #fff0 !important;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
@@ -137,6 +137,7 @@
 }
 .email-form:focus{
   outline: none;
+  background: #fff0 !important;
   filter: drop-shadow(2px 4px 6px #fff);
 }
 .email-form::placeholder{
