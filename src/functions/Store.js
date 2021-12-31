@@ -1,6 +1,7 @@
 import React from "react";
 import Conection from "./Conection";
 import {action, makeObservable, observable} from "mobx";
+import {observer} from "mobx-react";
 
 class StoreDatos {
 
@@ -56,7 +57,7 @@ class StoreDatos {
 
     b_e = (a) => {
         this.a_g = a.r
-        this.a_f = a.l
+        this.a_f = a.q
     }
 
     c_a = (a, b) => { this.a_c[0][a] = b }
@@ -137,7 +138,7 @@ class StoreDatos {
         makeObservable(this, {
             a_g: observable,
             a_f: observable,
-            a_z: observable,
+            a_z:observable,
 
             b_b: action,
             b_e: action,

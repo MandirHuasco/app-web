@@ -72,7 +72,6 @@ class Login extends  React.Component {
             invalidUser: false,
             invalidPass: false,
             invalidLogin: false,
-            validLogin: false,
             login: true,
         }
         this.onChange = this.onChange.bind(this);
@@ -121,29 +120,17 @@ class Login extends  React.Component {
 
             //VALIDACION LOGIN SOCKET
 
-            console.log(StoreDatos.a_z[0].g_o)
 
-            if(StoreDatos.a_z[0].g_o === true){
-                this.setState({
-                    invalidLogin: true,
-                    mensajeLogin: 'Usuario conectado',
-                    validLogin: true,
-                    login: false,
-                });
-            }else{
-                this.setState({
-                    invalidLogin: true,
-                    mensajeLogin: 'Usuario o contraseña incorrrecta',
-                });
-                console.log(StoreDatos.a_c[0].c_a);
-            }
+
         }
         //console.log(StoreDatos.a_c[0].c_a);
     }
 
     render (){
-        return(<>
-            {this.state.login === true &&
+
+        return(
+            <>
+            {StoreDatos.a_z[0].g_o === false &&
             <div className="App">
                 <div className="background-image">
                     <div className="sub-background image-01">
@@ -206,7 +193,7 @@ class Login extends  React.Component {
                 </div>
             </div>
             }
-            {this.state.validLogin === true &&
+            {StoreDatos.a_z[0].g_o === true &&
                 <Page2/>
             }
         </>)

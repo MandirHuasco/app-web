@@ -1,6 +1,7 @@
 import React from "react";
 import StoreDatos from "./functions/Store"
 import Conection from "./functions/Conection";
+import axios from 'axios';
 
 import './App.css';
 import {observer} from "mobx-react";

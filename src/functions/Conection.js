@@ -94,12 +94,14 @@ class Conection {
                     if (e === undefined) return //manejar este envento vacio
                     let xx = JSON.parse(e.data)
 
-                    StoreDatos.z_a('g_o', xx.status)
+
                     if( xx.event === 'USER_LOGGIN' && xx.status === true){
                         StoreDatos.b_e(xx.data)
+                        StoreDatos.z_a('g_o', true)
                         console.log(StoreDatos.a_z[0].g_o)
                     }
                     if( xx.event === 'USER_LOGGIN' && xx.status === false){
+                        StoreDatos.z_a('g_o', false)
                         console.log(StoreDatos.a_z[0].g_o)
                     }
                 }
