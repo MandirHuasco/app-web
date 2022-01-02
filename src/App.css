@@ -147,6 +147,9 @@ body{
   color: #c0c0c0;
   font-size: 20px;
 }
+.email-form:-webkit-autofill{
+  background-color: #fff0 !important;
+}
 .pass-form{
   width: 400px;
   color: #fff;
@@ -479,6 +482,43 @@ input:checked.check-form:after{
 .bg-transparent-white{
   background: #ffffff47;
   filter: drop-shadow(2px 4px 6px black);
+}
+.overflow-fechas{
+  max-height: 60vh;
+  overflow: auto;
+}
+.search-form{
+  color: #fff;
+  background: #fff0 !important;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 5px;
+  transition: 0.4s ease-in-out;
+}
+.search-form:focus{
+  outline: none;
+  background: #fff0 !important;
+  border-bottom: 2px solid #76b6e5;
+  filter: drop-shadow(2px 4px 6px #fff);
+}
+.search-form::placeholder{
+  color: #fff;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+.btn-search{
+  background-color: #000 !important;
+  border-color: #3c3356 !important;
+  border-radius: 20px !important;
+  padding: 16px !important;
+}
+.box-search{
+  background: #fff0;
+  border: none;
+  padding: 0;
 }
 @keyframes App-logo-spin {
   from {

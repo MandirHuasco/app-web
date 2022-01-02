@@ -3,7 +3,7 @@ import axios from "axios";
 
 import StoreDatos from "../functions/Store";
 
-import {faTicketAlt} from "@fortawesome/free-solid-svg-icons";
+import {faTicketAlt, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -41,17 +41,40 @@ function Page2() {
     const toggle_106 = () => setModal_106(!modal_106);
 
     const [fechas, setFechas]= useState([]);
+    const [tablaFechas, setTablaFechas]= useState([]);
+    const [busqueda, setBusqueda]= useState("");
+
 
     const FechaGet = async() => {
 
         await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=gaaa&sede=gaaaaa")
             .then(response => {
                 setFechas(response.data);
-
+                setTablaFechas(response.data);
             }).catch(error=>{
                 console.log(error);
             })
     }
+
+    const handleChange = e => {
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+    }
+    //console.log(JSON.stringify(fechas) + "ANTES")
+    const filtrar = (terminoBusqueda) => {
+        var resultadosBusqueda = tablaFechas.data.filter((elemento) => {
+            if(elemento.date_opening.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            ){
+                return elemento;
+            }
+        });
+        let obj = {}
+        obj.data = resultadosBusqueda
+        setFechas(obj);
+        //console.log(JSON.stringify(fechas) + "DESPUEs")
+    }
+
+
 
     useEffect(()=>{
         FechaGet();
@@ -335,18 +358,38 @@ function Page2() {
                         <div className="box-prin margin-top-20 bg-transparent-white">
                             <div className="historial-text">HISTORIAL</div>
                         </div>
-                        <div className="box-prin margin-top-20">
+                        <div className="box-prin margin-top-20 bg-transparent-white box-search">
+                            <div className="containerInput">
+                                <input
+                                    className="search-form"
+                                    placeholder="AÑO-MES-DIA"
+                                    value={busqueda}
+                                    onChange={handleChange}
+                                />
+                                <button className="btn btn-success btn-search">
+                                    <FontAwesomeIcon icon={faSearch}/>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="box-prin margin-top-20 overflow-fechas">
                             <table className="table-cont">
-                                <tbody>
+                                <thead>
                                 <tr>
                                     <td className="fecha-hist-head">Fecha</td>
                                     <td className="fecha-hist-head">Total</td>
                                 </tr>
-                                {fechas &&
-                                fechas.map((fecha) => (
-                                    <tr>
+                                </thead>
+                                <tbody>
+                                {fechas.data &&
+                                fechas.data.map((fecha) => (
+                                    <tr key={fecha.id}>
                                         <td className="fecha-hist-head">{fecha.date_opening}</td>
-                                        <td className="fecha-hist-head">Total</td>
+                                        <td className="fecha-hist-head">asdada</td>
+                                        {StoreDatos.a_f.map((c, i) => (
+                                            c.box.Id_box === 734 ?
+                                        <td className="fecha-hist-head">{c.items[0].Total_cash + c.items[1].Total_cash + c.items[2].Total_cash}</td>
+                                        :''))}
+
                                     </tr>
                                 ))}
                                 </tbody>
@@ -386,34 +429,13 @@ function Page2() {
                                 </ModalHeader>
                                 <ModalBody>
                                     <div className="cont-select-modal">
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-14"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-14"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-13"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-13"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-12"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-12"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-11"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-11"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-10"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-10"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-09"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-09"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="2021-11-08"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="2021-11-08"/>
-                                        </form>
+                                        {fechas.data &&
+                                        fechas.data.map((fecha) => (
+                                            <form action="" key={fecha.id}>
+                                                <input type="hidden" name="" value={fecha.date_opening}/>
+                                                <input type="submit" className="submit-form submit-form-modal" value={fecha.date_opening}/>
+                                            </form>
+                                        ))}
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>

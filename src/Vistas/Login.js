@@ -68,11 +68,9 @@ class Login extends  React.Component {
             pass: '',
             mensajeUser: '',
             mensajePass: '',
-            mensajeLogin: '',
             invalidUser: false,
             invalidPass: false,
-            invalidLogin: false,
-            login: true,
+            Login: false,
         }
         this.onChange = this.onChange.bind(this);
         this.Validar = this.Validar.bind(this);
@@ -115,15 +113,17 @@ class Login extends  React.Component {
         }
 
         if(!this.state.invalidUser && !this.state.invalidPass){
-
-            this.componentDidMount()
-
-            //VALIDACION LOGIN SOCKET
-
-
-
+            this.setState({
+                Login: true,
+            });
+        }else{
+            this.setState({
+                Login: false,
+            });
         }
-        //console.log(StoreDatos.a_c[0].c_a);
+
+        this.componentDidMount()
+        //console.log(StoreDatos.a_z[0].g_o);
     }
 
     render (){
@@ -137,7 +137,6 @@ class Login extends  React.Component {
                         <div className="sub-background image-02"></div>
                     </div>
                 </div>
-
                 <div className="cont-form">
                     <div className="mini-logo-01">
                         <img src={img001} className="img-mini-logo-01"/>
@@ -181,13 +180,28 @@ class Login extends  React.Component {
                          incorrecto mostrar
                          el sgte error:
                          **/}
-                        {this.state.invalidLogin === true &&
-                        <div className="input-form">
-                            <div className="error-report">
-                                <i className="exclamation">{exclamation}</i>
-                                {this.state.mensajeLogin}
-                            </div>
-                        </div>
+                        {
+                            this.state.Login === true &&
+                                <div>
+                                    {
+                                        this.state.user !== '' &&
+                                        <div>
+                                            {
+                                                this.state.pass !== '' &&
+                                                <div>
+                                                    {StoreDatos.a_z[0].g_o === false &&
+                                                    <div className="input-form">
+                                                        <div className="error-report">
+                                                            <i className="exclamation">{exclamation}</i>
+                                                            Usuario no valido
+                                                        </div>
+                                                    </div>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
                         }
                     </div>
                 </div>
