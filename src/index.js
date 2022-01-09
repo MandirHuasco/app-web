@@ -5,13 +5,15 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import App from "./App.js";
-import Page2 from "./Vistas/Principal";
+import Principal from "./Vistas/Principal";
+import Reportes from "./Vistas/Reportes";
 
 ReactDOM.render(
     <Router>
         <Routes>
             <Route exact path="/" element={<App/>} />
-            <Route exact path="/Principal" element={<Page2/>} />
+            <Route exact path="/Principal" element={<Principal/>} />
+            <Route exact path="/Reportes" element={<Reportes/>} />
             <Route exact path="*" element={<App/>}/>
         </Routes>
     </Router>,

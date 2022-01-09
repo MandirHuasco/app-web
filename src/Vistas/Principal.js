@@ -18,7 +18,22 @@ import img107 from '../img/caja.png';
 
 const ticket = <FontAwesomeIcon icon={faTicketAlt} />;
 
-function Page2() {
+function Principal() {
+
+    const dataBase = [["0","tenancy_fadima"],["1","tenancy_yawi"]];
+    let id_database = StoreDatos.a_m.Id_user;
+
+    const [sede, setSede]= useState([]);
+
+    const SedeGet = async() => {
+
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_sedes.php?database=" + dataBase[id_database][1] + "&sede=2")
+            .then(response => {
+                setSede(response.data);
+            }).catch(error=>{
+                console.log(error);
+            })
+    }
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [modal_101, setModal_101] = useState(false);
@@ -44,10 +59,15 @@ function Page2() {
     const [tablaFechas, setTablaFechas]= useState([]);
     const [busqueda, setBusqueda]= useState("");
 
+    const [fechasSecond, setFechasSecond]= useState([]);
+    const [tablaFechasSecond, setTablaFechasSecond]= useState([]);
+    const [busquedaSecond, setBusquedaSecond]= useState("");
+
+    const [fechaSelect, setFechaSelect]= useState("");
 
     const FechaGet = async() => {
 
-        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=gaaa&sede=gaaaaa")
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=" + dataBase[id_database][1] +"&sede=2")
             .then(response => {
                 setFechas(response.data);
                 setTablaFechas(response.data);
@@ -74,11 +94,53 @@ function Page2() {
         //console.log(JSON.stringify(fechas) + "DESPUEs")
     }
 
+    const FechaGetSecond = async() => {
 
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=" + dataBase[id_database][1] +"&sede=2")
+            .then(response => {
+                setFechasSecond(response.data);
+                setTablaFechasSecond(response.data);
+            }).catch(error=>{
+                console.log(error);
+            })
+    }
+
+    const handleChangeSecond = e => {
+        setBusquedaSecond(e.target.value);
+        filtrarSecond(e.target.value);
+    }
+    //console.log(JSON.stringify(fechas) + "ANTES")
+    const filtrarSecond = (terminoBusquedaSecond) => {
+        var resultadosBusquedaSecond = tablaFechasSecond.data.filter((elemento) => {
+            if(elemento.date_opening.toString().toLowerCase().includes(terminoBusquedaSecond.toLowerCase())
+            ){
+                return elemento;
+            }
+        });
+        let obj = {}
+        obj.data = resultadosBusquedaSecond
+        setFechasSecond(obj);
+        //console.log(JSON.stringify(fechas) + "DESPUEs")
+    }
 
     useEffect(()=>{
+        SedeGet();
         FechaGet();
+        FechaGetSecond();
     },[])
+
+    useEffect(() => {
+
+        function InvoiceClicked(){
+            if(fechaSelect){
+                localStorage.setItem("IdFecha", fechaSelect)
+                localStorage.setItem("IdData", dataBase[id_database][1])
+                //console.log(fechaSelect + "Id-Fecha")
+                window.open('/Reportes', "_blank")
+            }
+        }InvoiceClicked();
+
+    }, [fechaSelect])
 
     return (<>
             <div className="App App-prin">
@@ -427,14 +489,23 @@ function Page2() {
                                     <img src={img105} className="img-home"/>
                                     <p className="p-modal">Seleccionar <span className="span-modal">fecha</span>.</p>
                                 </ModalHeader>
-                                <ModalBody>
+                                <div className="containerInput containerInputModal">
+                                    <input
+                                        className="search-form search-fechas-input"
+                                        placeholder="AÑO-MES-DIA"
+                                        value={busquedaSecond}
+                                        onChange={handleChangeSecond}
+                                    />
+                                </div>
+                                <ModalBody className="body-modal-fechas">
                                     <div className="cont-select-modal">
-                                        {fechas.data &&
-                                        fechas.data.map((fecha) => (
-                                            <form action="" key={fecha.id}>
-                                                <input type="hidden" name="" value={fecha.date_opening}/>
-                                                <input type="submit" className="submit-form submit-form-modal" value={fecha.date_opening}/>
-                                            </form>
+                                        {fechasSecond.data &&
+                                        fechasSecond.data.map((fecha) => (
+                                            <div key={fecha.id}>
+                                                <a onClick={() => setFechaSelect(fecha.id)}>
+                                                    <input key={fecha.id} type="submit" className="submit-form submit-form-modal" value={fecha.date_opening}/>
+                                                </a>
+                                            </div>
                                         ))}
                                     </div>
                                 </ModalBody>
@@ -447,9 +518,8 @@ function Page2() {
                 </div>
 
             </div>
-        }
     </>);
 
 }
 
-export default Page2;
+export default Principal;

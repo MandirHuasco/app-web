@@ -47,6 +47,7 @@ class StoreDatos {
     a_g = []
     a_h = []
     a_f = []																				//rooms
+    a_m = []                                                                                //id_user
 
     b_b = (a) => {
         this.a_b = a.q								//textos
@@ -58,6 +59,7 @@ class StoreDatos {
     b_e = (a) => {
         this.a_g = a.r
         this.a_f = a.q
+        this.a_m = a.n
     }
 
     c_a = (a, b) => { this.a_c[0][a] = b }
@@ -138,6 +140,7 @@ class StoreDatos {
         makeObservable(this, {
             a_g: observable,
             a_f: observable,
+            a_m: observable,
             a_z:observable,
 
             b_b: action,
