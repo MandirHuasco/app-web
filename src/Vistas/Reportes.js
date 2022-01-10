@@ -54,7 +54,7 @@ function Reportes(){
 
     return (<>
         <div className="App App-prin">
-            <div className="background-image background-image-prin">
+            <div className="background-image background-image-prin background-image-reportes">
             </div>
 
             <div className="nav-reporte">
@@ -100,7 +100,7 @@ function Reportes(){
                                 dataFechas.data.map((data) => (
                                     <tr key={idCont = idCont + 1}>
                                         <td className="td-reporte-body td-text-reporte">{data.name}</td>
-                                        <td className="td-reporte-body">{parseInt(data.cantidad)}</td>
+                                        <td className="td-reporte-body">{parseFloat(data.cantidad)}</td>
                                         <td className="td-reporte-body">{data.total}</td>
                                     </tr>
                                 ))}

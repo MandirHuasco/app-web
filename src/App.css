@@ -665,6 +665,14 @@ input:checked.check-form:after{
   color: #000;
   background: #fff;
 }
+.background-image-reportes{
+  filter: none;
+}
+.box-select-barra{
+  background: #ffffff00;
+  border: none;
+  border-bottom: 1px solid #fff;
+}
 
 @keyframes App-logo-spin {
   from {

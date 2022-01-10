@@ -20,20 +20,21 @@ const ticket = <FontAwesomeIcon icon={faTicketAlt} />;
 
 function Principal() {
 
-    const dataBase = [["0","tenancy_fadima"],["1","tenancy_yawi"]];
+    const dataBase = [["0","tenancy_fadima"],["1","tenancy_yawi"],["1",""]];
     let id_database = StoreDatos.a_m.Id_user;
-
     const [sede, setSede]= useState([]);
 
     const SedeGet = async() => {
 
-        await axios.get("http://apita.traker.ga/monitoreo/get_info_sedes.php?database=" + dataBase[id_database][1] + "&sede=2")
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_sedes.php?database=" + dataBase[id_database][1])
             .then(response => {
                 setSede(response.data);
             }).catch(error=>{
                 console.log(error);
             })
     }
+
+    //let sedes = sede.data.length;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [modal_101, setModal_101] = useState(false);
@@ -64,10 +65,11 @@ function Principal() {
     const [busquedaSecond, setBusquedaSecond]= useState("");
 
     const [fechaSelect, setFechaSelect]= useState("");
+    const [sedeSelect, setSedeSelect]= useState("1");
 
     const FechaGet = async() => {
 
-        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=" + dataBase[id_database][1] +"&sede=2")
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=" + dataBase[id_database][1] +"&sede=" + sedeSelect)
             .then(response => {
                 setFechas(response.data);
                 setTablaFechas(response.data);
@@ -96,7 +98,7 @@ function Principal() {
 
     const FechaGetSecond = async() => {
 
-        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=" + dataBase[id_database][1] +"&sede=2")
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_fech.php?database=" + dataBase[id_database][1] + "&sede=" + sedeSelect)
             .then(response => {
                 setFechasSecond(response.data);
                 setTablaFechasSecond(response.data);
@@ -141,6 +143,19 @@ function Principal() {
         }InvoiceClicked();
 
     }, [fechaSelect])
+
+    useEffect(() => {
+
+        function InvoiceClickedSede(){
+            if(sedeSelect){
+                //console.log(sedeSelect + " Id-Sede")
+                setModal_101(false);
+                FechaGet();
+                FechaGetSecond();
+            }
+        }InvoiceClickedSede();
+
+    }, [sedeSelect])
 
     return (<>
             <div className="App App-prin">
@@ -417,6 +432,17 @@ function Principal() {
                                 </table>
                             </div>
                         </div>:''))}
+                        <div className="box-prin margin-top-20 bg-transparent-white box-select-barra">
+                            <div className="historial-text">
+                                {sede.data &&
+                                sede.data.map((sed) => (
+                                    sedeSelect === sed.user_id ?
+                                    <div key={sed.user_id}>
+                                        BARRA: {sed.name}
+                                    </div> : ''
+                                ))}
+                            </div>
+                        </div>
                         <div className="box-prin margin-top-20 bg-transparent-white">
                             <div className="historial-text">HISTORIAL</div>
                         </div>
@@ -446,19 +472,14 @@ function Principal() {
                                 fechas.data.map((fecha) => (
                                     <tr key={fecha.id}>
                                         <td className="fecha-hist-head">{fecha.date_opening}</td>
-                                        <td className="fecha-hist-head">asdada</td>
-                                        {StoreDatos.a_f.map((c, i) => (
-                                            c.box.Id_box === 734 ?
-                                        <td className="fecha-hist-head">{c.items[0].Total_cash + c.items[1].Total_cash + c.items[2].Total_cash}</td>
-                                        :''))}
-
+                                        <td className="fecha-hist-head">{parseFloat(fecha.final_balance)}</td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </table>
                         </div>
                         <div className="box-prin margin-top-20 display-flex-money bg-fin">
-                            <div className="button-fin"><button className="button-fecha" onClick={() => toggle_101()}>SEDE ATE</button></div>
+                            <div className="button-fin"><button className="button-fecha" onClick={() => toggle_101()}>BARRAS</button></div>
 
                             <Modal isOpen={modal_101} toggle={toggle_101}>
                                 <ModalHeader toggle={toggle_101}>
@@ -467,14 +488,14 @@ function Principal() {
                                 </ModalHeader>
                                 <ModalBody>
                                     <div className="cont-select-modal">
-                                        <form action="">
-                                            <input type="hidden" name="" value="Sede Ate"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="Sede Ate"/>
-                                        </form>
-                                        <form action="">
-                                            <input type="hidden" name="" value="Sede Olivos"/>
-                                            <input type="submit" className="submit-form submit-form-modal" value="Sede Olivos"/>
-                                        </form>
+                                        {sede.data &&
+                                        sede.data.map((sed) => (
+                                            <div key={sed.user_id}>
+                                                <a onClick={() => setSedeSelect(sed.user_id)}>
+                                                    <input type="submit" className="submit-form submit-form-modal" value={sed.name}/>
+                                                </a>
+                                            </div>
+                                        ))}
                                     </div>
                                 </ModalBody>
                                 <ModalFooter>
