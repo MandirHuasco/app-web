@@ -433,7 +433,8 @@ function Principal() {
                             </div>
                         </div>:''))}
                         <div className="box-prin margin-top-20 bg-transparent-white box-select-barra">
-                            <div className="historial-text">
+                            <div className="historial-text button-fecha-icon">
+                                <span className="icon"><ion-icon name="scan-outline"></ion-icon></span>
                                 {sede.data &&
                                 sede.data.map((sed) => (
                                     sedeSelect === sed.user_id ?
@@ -444,7 +445,7 @@ function Principal() {
                             </div>
                         </div>
                         <div className="box-prin margin-top-20 bg-transparent-white">
-                            <div className="historial-text">HISTORIAL</div>
+                            <div className="historial-text button-fecha-icon"><span className="icon"><ion-icon name="newspaper-outline"></ion-icon></span>HISTORIAL</div>
                         </div>
                         <div className="box-prin margin-top-20 bg-transparent-white box-search">
                             <div className="containerInput">
@@ -479,7 +480,7 @@ function Principal() {
                             </table>
                         </div>
                         <div className="box-prin margin-top-20 display-flex-money bg-fin">
-                            <div className="button-fin"><button className="button-fecha" onClick={() => toggle_101()}>BARRAS</button></div>
+                            <div className="button-fin"><button className="button-fecha button-fecha-icon" onClick={() => toggle_101()}><span className="icon"><ion-icon name="layers-outline"></ion-icon></span>BARRAS</button></div>
 
                             <Modal isOpen={modal_101} toggle={toggle_101}>
                                 <ModalHeader toggle={toggle_101}>
@@ -503,7 +504,7 @@ function Principal() {
                                 </ModalFooter>
                             </Modal>
 
-                            <div className="button-fin"><button className="button-fecha" onClick={() => toggle_102()}>POR DIA</button></div>
+                            <div className="button-fin"><button className="button-fecha button-fecha-icon" onClick={() => toggle_102()}><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>POR DIA</button></div>
 
                             <Modal isOpen={modal_102} toggle={toggle_102}>
                                 <ModalHeader toggle={toggle_102}>

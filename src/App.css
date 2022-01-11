@@ -673,6 +673,39 @@ input:checked.check-form:after{
   border: none;
   border-bottom: 1px solid #fff;
 }
+.icon{
+  display: inline-flex;
+  margin: 0 10px;
+}
+.icon-report{
+  display: inline-flex;
+  margin: 0 10px 0 0;
+}
+.button-fecha-icon{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-report-icon{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-bg-select{
+  background: #3b086f !important;
+}
+.nav-bg-select:hover{
+  color: #fff !important;
+}
+.div-on{
+  display: block;
+}
+.div-off{
+  display: none;
+}
+.cont-sub-prin-pdf{
+  filter: drop-shadow(2px 4px 6px black);
+}
 
 @keyframes App-logo-spin {
   from {
