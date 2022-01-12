@@ -14,7 +14,7 @@ import img103 from '../img/ticket-003.png';
 import img104 from '../img/home.png';
 import img105 from '../img/fecha.png';
 import img106 from '../img/ticket-004.png';
-import img107 from '../img/caja.png';
+import img107 from '../img/ticket-05.png';
 
 const ticket = <FontAwesomeIcon icon={faTicketAlt} />;
 
@@ -22,6 +22,7 @@ function Principal() {
 
     const dataBase = [["0","tenancy_fadima"],["1","tenancy_yawi"],["1",""]];
     let id_database = StoreDatos.a_m.Id_user;
+    let fechaRangoInicial = '';
     const [sede, setSede]= useState([]);
 
     const SedeGet = async() => {
@@ -33,6 +34,14 @@ function Principal() {
                 console.log(error);
             })
     }
+
+    StoreDatos.a_f.map((c) => (
+        c.box.Id_attender === 'M1'?
+        fechaRangoInicial = c.box.Id
+            : ''
+    ))
+
+    //console.log(StoreDatos.a_f[0] + "AQUI")
 
     //let sedes = sede.data.length;
 
@@ -48,6 +57,10 @@ function Principal() {
     const [modal_105, setModal_105] = useState(false);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [modal_106, setModal_106] = useState(false);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [modal_107, setModal_107] = useState(false);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [modal_108, setModal_108] = useState(false);
 
     const toggle_101 = () => setModal_101(!modal_101);
     const toggle_102 = () => setModal_102(!modal_102);
@@ -55,6 +68,8 @@ function Principal() {
     const toggle_104 = () => setModal_104(!modal_104);
     const toggle_105 = () => setModal_105(!modal_105);
     const toggle_106 = () => setModal_106(!modal_106);
+    const toggle_107 = () => setModal_107(!modal_107);
+    const toggle_108 = () => setModal_108(!modal_108);
 
     const [fechas, setFechas]= useState([]);
     const [tablaFechas, setTablaFechas]= useState([]);
@@ -66,6 +81,7 @@ function Principal() {
 
     const [fechaSelect, setFechaSelect]= useState("");
     const [sedeSelect, setSedeSelect]= useState("1");
+    const [fechaRangoSelect, setFechaRAngoSelect]= useState(fechaRangoInicial);
 
     const FechaGet = async() => {
 
@@ -157,6 +173,17 @@ function Principal() {
 
     }, [sedeSelect])
 
+    useEffect(() => {
+
+        function InvoiceClickedFecha(){
+            if(fechaRangoSelect){
+                //console.log(sedeSelect + " Id-Sede")
+                setModal_107(false);
+            }
+        }InvoiceClickedFecha();
+
+    }, [fechaRangoSelect])
+
     return (<>
             <div className="App App-prin">
                 <div className="background-image background-image-prin">
@@ -164,36 +191,27 @@ function Principal() {
 
                 <div className="cont-sub-prin">
                     <div className="prin-total">
-                        {StoreDatos.a_f.map((c, i) => (
-                            c.box.Id_box === 734 ?
-                        <div>
+                        {StoreDatos.a_o.map((c, i) => (
+                            c.box.Date_start_report === fechaRangoSelect ?
+                        <div className="display-contents">
                             <div className="display-flex-money">
                                 <div className="money-icon">S/.</div>
-                                <div className="total-money">
-                                    {c.items[0].Total_cash + c.items[1].Total_cash + c.items[2].Total_cash}
-                                </div>
+                                {c.box.Id_attender === 'M3' ?
+                                    <div className="total-money">
+                                        {c.items[0].Total_cash + c.items[1].Total_cash}
+                                    </div> :
+                                    <div className="total-money">
+                                        {c.items[0].Total_cash + c.items[1].Total_cash + c.items[2].Total_cash}
+                                    </div>
+                                }
                             </div>
                             <div className="cont-ticket">
                                 <i className="ticket">{ticket}</i>
-                                <div className="ticket-nro">{c.items[0].Total_tickets + c.items[1].Total_tickets + c.items[2].Total_tickets}</div>
-                            </div>
-                            <div className="box-prin">
-                                <div className="enabled-div">
-                                    <img src={img107} className="ticket-img caja-cont"/>
-                                </div>
-                                <table className="table-cont">
-                                    <tbody>
-                                    <tr className="disabled-tr">
-                                        <td rowSpan="3"><img src={img107} className="ticket-img caja-cont"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="cantidad-ticket caja"><div className="led-enable"></div><p className="caja-led">Caja abierta</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="cantidad-ticket caja"><div className="led-disabled"></div><p className="caja-led">Caja cerrada</p></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                {c.box.Id_attender === 'M3' ?
+                                    <div className="ticket-nro">{c.items[0].Total_tickets + c.items[1].Total_tickets}</div>
+                                    :
+                                    <div className="ticket-nro">{c.items[0].Total_tickets + c.items[1].Total_tickets + c.items[2].Total_tickets}</div>
+                                }
                             </div>
                             <div className="box-prin margin-top-20 bg-transparent-white">
                                 <div className="historial-text">SELECCIONE PARA VER DETALLES</div>
@@ -201,246 +219,273 @@ function Principal() {
                             <div className="box-prin margin-top-20">
                                 <table className="table-cont">
                                     <tbody>
-                                    <a key="103" className="display-contents" onClick={() => toggle_103()}>
-                                        <tr className="tr-ticket">
-                                            <td className="estado-caja disabled-td">
-                                                <div className="led-enable"></div>
-                                            </td>
-                                            <td className="ticket-icon"><img src={img101} className="ticket-img"/></td>
-                                            <td className="cantidad-ticket">{c.items[0].Total_tickets}</td>
-                                            <td className="precio-ticket">s/. {c.items[0].Total_cash}</td>
-                                        </tr>
-                                    </a>
+                                    {c.box.Id_attender === 'M1' ?
+                                    <div className="display-contents">
+                                        <a key="103" className="display-contents" onClick={() => toggle_103()}>
+                                            <tr className="tr-ticket">
+                                                <td className="ticket-icon"><img src={img101} className="ticket-img"/></td>
+                                                <td className="cantidad-ticket">{c.items[0].Total_tickets}</td>
+                                                <td className="precio-ticket">s/. {c.items[0].Total_cash}</td>
+                                            </tr>
+                                        </a>
 
-                                    <Modal isOpen={modal_103} toggle={toggle_103}>
-                                        <ModalHeader toggle={toggle_103}>
-                                            <img src={img101} className="img-home"/>
-                                            <p className="p-modal">Detalles de <span className="span-modal">ENTRADAS</span>.</p>
-                                        </ModalHeader>
-                                        <ModalBody>
-                                            <div className="cont-select-modal">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Estado</td>
-                                                        <td className="cell-modal">Cantidad</td>
-                                                        <td className="cell-modal">Total</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="estado-caja bg-estado">
-                                                            <div className="led-enable"></div>
-                                                        </td>
-                                                        <td className="cell-modal">{c.items[0].Total_tickets}</td>
-                                                        <td className="cell-modal">s/. {c.items[0].Total_cash}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                        <Modal isOpen={modal_103} toggle={toggle_103}>
+                                            <ModalHeader toggle={toggle_103}>
+                                                <img src={img101} className="img-home"/>
+                                                <p className="p-modal">Detalles de <span className="span-modal">ENTRADAS</span>.</p>
+                                            </ModalHeader>
+                                            <ModalBody>
+                                                <div className="table-overflow">
+                                                    <div className="cont-select-modal table-cont-modal-scroll">
+                                                        <table className="table-cont-modal">
+                                                            <thead>
+                                                            <tr className="tr-head-modal">
+                                                                <td className="cell-modal">Descripción</td>
+                                                                <td className="cell-modal">Cantidad</td>
+                                                                <td className="cell-modal">Unitario</td>
+                                                                <td className="cell-modal">Total</td>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr className="">
+                                                                <td className="cell-modal">{c.items[0].Name}</td>
+                                                                <td className="cell-modal">{c.items[0].Total_tickets}</td>
+                                                                <td className="cell-modal">s/. {c.items[0].Total_value}</td>
+                                                                <td className="cell-modal">s/. {c.items[0].Total_cash}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                            </ModalFooter>
+                                        </Modal>
 
-                                            <div className="cont-select-modal margin-top-20">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Fecha</td>
-                                                        <td className="cell-modal">Sede</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="cell-modal">2021/11/15</td>
-                                                        <td className="cell-modal">Sede Ate</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                        </ModalFooter>
-                                    </Modal>
+                                        <a key="104" className="display-contents" onClick={() => toggle_104()}>
+                                            <tr className="tr-ticket">
+                                                <td className="ticket-icon"><img src={img102} className="ticket-img"/></td>
+                                                <td className="cantidad-ticket">{c.items[2].Total_tickets}</td>
+                                                <td className="precio-ticket">s/. {c.items[2].Total_cash}</td>
+                                            </tr>
+                                        </a>
 
-                                    <a key="104" className="display-contents" onClick={() => toggle_104()}>
-                                        <tr className="tr-ticket">
-                                            <td className="estado-caja disabled-td">
-                                                <div className="led-enable"></div>
-                                            </td>
-                                            <td className="ticket-icon"><img src={img102} className="ticket-img"/></td>
-                                            <td className="cantidad-ticket">{c.items[2].Total_tickets}</td>
-                                            <td className="precio-ticket">s/. {c.items[2].Total_cash}</td>
-                                        </tr>
-                                    </a>
+                                        <Modal isOpen={modal_104} toggle={toggle_104}>
+                                            <ModalHeader toggle={toggle_104}>
+                                                <img src={img102} className="img-home"/>
+                                                <p className="p-modal">Detalles de <span className="span-modal">COCHES</span>.</p>
+                                            </ModalHeader>
+                                            <ModalBody>
+                                                <div className="table-overflow">
+                                                    <div className="cont-select-modal table-cont-modal-scroll">
+                                                        <table className="table-cont-modal">
+                                                            <tbody>
+                                                            <tr className="tr-head-modal">
+                                                                <td className="cell-modal">Descripción</td>
+                                                                <td className="cell-modal">Cantidad</td>
+                                                                <td className="cell-modal">Unitario</td>
+                                                                <td className="cell-modal">Total</td>
+                                                            </tr>
+                                                            <tr className="">
+                                                                <td className="cell-modal">{c.items[2].Name}</td>
+                                                                <td className="cell-modal">{c.items[2].Total_tickets}</td>
+                                                                <td className="cell-modal">s/. {c.items[2].Total_value}</td>
+                                                                <td className="cell-modal">s/. {c.items[2].Total_cash}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                            </ModalFooter>
+                                        </Modal>
 
-                                    <Modal isOpen={modal_104} toggle={toggle_104}>
-                                        <ModalHeader toggle={toggle_104}>
-                                            <img src={img102} className="img-home"/>
-                                            <p className="p-modal">Detalles de <span className="span-modal">COCHES</span>.</p>
-                                        </ModalHeader>
-                                        <ModalBody>
-                                            <div className="cont-select-modal">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Estado</td>
-                                                        <td className="cell-modal">Cantidad</td>
-                                                        <td className="cell-modal">Total</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="estado-caja bg-estado">
-                                                            <div className="led-enable"></div>
-                                                        </td>
-                                                        <td className="cell-modal">{c.items[2].Total_tickets}</td>
-                                                        <td className="cell-modal">s/. {c.items[2].Total_cash}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                        <a key="105" className="display-contents" onClick={() => toggle_105()}>
+                                            <tr className="tr-ticket">
+                                                <td className="ticket-icon"><img src={img103} className="ticket-img"/></td>
+                                                <td className="cantidad-ticket">{c.items[1].Total_tickets}</td>
+                                                <td className="precio-ticket">s/. {c.items[1].Total_cash}</td>
+                                            </tr>
+                                        </a>
 
-                                            <div className="cont-select-modal margin-top-20">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Fecha</td>
-                                                        <td className="cell-modal">Sede</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="cell-modal">2021/11/15</td>
-                                                        <td className="cell-modal">Sede Ate</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                        </ModalFooter>
-                                    </Modal>
+                                        <Modal isOpen={modal_105} toggle={toggle_105}>
+                                            <ModalHeader toggle={toggle_105}>
+                                                <img src={img103} className="img-home"/>
+                                                <p className="p-modal">Detalles de <span className="span-modal">MOTOS</span>.</p>
+                                            </ModalHeader>
+                                            <ModalBody>
+                                                <div className="table-overflow">
+                                                    <div className="cont-select-modal table-cont-modal-scroll">
+                                                        <table className="table-cont-modal">
+                                                            <tbody>
+                                                            <tr className="tr-head-modal">
+                                                                <td className="cell-modal">Descripción</td>
+                                                                <td className="cell-modal">Cantidad</td>
+                                                                <td className="cell-modal">Unitario</td>
+                                                                <td className="cell-modal">Total</td>
+                                                            </tr>
+                                                            <tr className="">
+                                                                <td className="cell-modal">{c.items[1].Name}</td>
+                                                                <td className="cell-modal">{c.items[1].Total_tickets}</td>
+                                                                <td className="cell-modal">s/. {c.items[1].Total_value}</td>
+                                                                <td className="cell-modal">s/. {c.items[1].Total_cash}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </ModalBody>
+                                            <ModalFooter>
+                                                <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                            </ModalFooter>
+                                        </Modal>
+                                    </div>
 
-                                    <a key="105" className="display-contents" onClick={() => toggle_105()}>
-                                        <tr className="tr-ticket">
-                                            <td className="estado-caja disabled-td">
-                                                <div className="led-disabled"></div>
-                                            </td>
-                                            <td className="ticket-icon"><img src={img103} className="ticket-img"/></td>
-                                            <td className="cantidad-ticket">{c.items[1].Total_tickets}</td>
-                                            <td className="precio-ticket">s/. {c.items[1].Total_cash}</td>
-                                        </tr>
-                                    </a>
 
-                                    <Modal isOpen={modal_105} toggle={toggle_105}>
-                                        <ModalHeader toggle={toggle_105}>
-                                            <img src={img103} className="img-home"/>
-                                            <p className="p-modal">Detalles de <span className="span-modal">MOTOS</span>.</p>
-                                        </ModalHeader>
-                                        <ModalBody>
-                                            <div className="cont-select-modal">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Estado</td>
-                                                        <td className="cell-modal">Cantidad</td>
-                                                        <td className="cell-modal">Total</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="estado-caja bg-estado">
-                                                            <div className="led-disabled"></div>
-                                                        </td>
-                                                        <td className="cell-modal">{c.items[1].Total_tickets}</td>
-                                                        <td className="cell-modal">s/. {c.items[1].Total_cash}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                        :
 
-                                            <div className="cont-select-modal margin-top-20">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Fecha</td>
-                                                        <td className="cell-modal">Sede</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="cell-modal">2021/11/15</td>
-                                                        <td className="cell-modal">Sede Ate</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                        </ModalFooter>
-                                    </Modal>
+                                        <div className="display-contents">
+                                            <a key="106" className="display-contents" onClick={() => toggle_108()}>
+                                                <tr className="tr-ticket">
+                                                    <td className="ticket-icon"><img src={img106} className="ticket-img"/></td>
+                                                    <td className="cantidad-ticket">{c.items[0].Total_tickets}</td>
+                                                    <td className="precio-ticket">s/. {c.items[0].Total_cash}</td>
+                                                </tr>
+                                            </a>
 
-                                    <a key="106" className="display-contents" onClick={() => toggle_106()}>
-                                        <tr className="tr-ticket">
-                                            <td className="estado-caja disabled-td">
-                                                <div className="led-enable"></div>
-                                            </td>
-                                            <td className="ticket-icon"><img src={img106} className="ticket-img"/></td>
-                                            <td className="cantidad-ticket">--</td>
-                                            <td className="precio-ticket">s/. --</td>
-                                        </tr>
-                                    </a>
+                                            <Modal isOpen={modal_108} toggle={toggle_108}>
+                                                <ModalHeader toggle={toggle_108}>
+                                                    <img src={img106} className="img-home"/>
+                                                    <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
+                                                </ModalHeader>
+                                                <ModalBody>
+                                                    <div className="table-overflow">
+                                                        <div className="cont-select-modal table-cont-modal-scroll">
+                                                            <table className="table-cont-modal">
+                                                                <tbody>
+                                                                <tr className="tr-head-modal">
+                                                                    <td className="cell-modal">Descripción</td>
+                                                                    <td className="cell-modal">Cantidad</td>
+                                                                    <td className="cell-modal">Unitario</td>
+                                                                    <td className="cell-modal">Total</td>
+                                                                </tr>
+                                                                <tr className="">
+                                                                    <td className="cell-modal">{c.items[0].Name}</td>
+                                                                    <td className="cell-modal">{c.items[0].Total_tickets}</td>
+                                                                    <td className="cell-modal">s/. {c.items[0].Total_value}</td>
+                                                                    <td className="cell-modal">s/. {c.items[0].Total_cash}</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
 
-                                    <Modal isOpen={modal_106} toggle={toggle_106}>
-                                        <ModalHeader toggle={toggle_106}>
-                                            <img src={img106} className="img-home"/>
-                                            <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
-                                        </ModalHeader>
-                                        <ModalBody>
-                                            <div className="cont-select-modal">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Estado</td>
-                                                        <td className="cell-modal">Cantidad</td>
-                                                        <td className="cell-modal">Total</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="estado-caja bg-estado">
-                                                            <div className="led-disabled"></div>
-                                                        </td>
-                                                        <td className="cell-modal">--</td>
-                                                        <td className="cell-modal">s/. --</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                </ModalFooter>
+                                            </Modal>
 
-                                            <div className="cont-select-modal margin-top-20">
-                                                <table className="table-cont-modal">
-                                                    <tbody>
-                                                    <tr className="tr-head-modal">
-                                                        <td className="cell-modal">Fecha</td>
-                                                        <td className="cell-modal">Sede</td>
-                                                    </tr>
-                                                    <tr className="">
-                                                        <td className="cell-modal">2021/11/15</td>
-                                                        <td className="cell-modal">Sede Ate</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                        </ModalFooter>
-                                    </Modal>
+                                            <a key="106" className="display-contents" onClick={() => toggle_106()}>
+                                                <tr className="tr-ticket">
+                                                    <td className="ticket-icon"><img src={img107} className="ticket-img"/></td>
+                                                    <td className="cantidad-ticket">{c.items[1].Total_tickets}</td>
+                                                    <td className="precio-ticket">s/. {c.items[1].Total_cash}</td>
+                                                </tr>
+                                            </a>
+
+                                            <Modal isOpen={modal_106} toggle={toggle_106}>
+                                                <ModalHeader toggle={toggle_106}>
+                                                    <img src={img107} className="img-home"/>
+                                                    <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
+                                                </ModalHeader>
+                                                <ModalBody>
+                                                    <div className="table-overflow">
+                                                        <div className="cont-select-modal table-cont-modal-scroll">
+                                                            <table className="table-cont-modal">
+                                                                <tbody>
+                                                                <tr className="tr-head-modal">
+                                                                    <td className="cell-modal">Descripción</td>
+                                                                    <td className="cell-modal">Cantidad</td>
+                                                                    <td className="cell-modal">Unitario</td>
+                                                                    <td className="cell-modal">Total</td>
+                                                                </tr>
+                                                                <tr className="">
+                                                                    <td className="cell-modal">{c.items[1].Name}</td>
+                                                                    <td className="cell-modal">{c.items[1].Total_tickets}</td>
+                                                                    <td className="cell-modal">s/. {c.items[1].Total_value}</td>
+                                                                    <td className="cell-modal">s/. {c.items[1].Total_cash}</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                </ModalFooter>
+                                            </Modal>
+                                        </div>
+                                    }
 
                                     <tr>
-                                        <td colSpan="5" className="fecha-ticket">2021-11-15 Sede Ate</td>
+                                        <td colSpan="5" className="fecha-ticket">
+                                            {c.box.Date_start_report.toString().split('T')[0]}
+                                            {' ' + dataBase[id_database][1]}</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>:''))}
+
+                        <div className="box-prin margin-top-20 display-flex-money bg-fin">
+
+                            <div className="button-fin button-fin-100"><button className="button-fecha button-fecha-icon" onClick={() => toggle_107()}><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>POR DIAS</button></div>
+
+                            <Modal isOpen={modal_107} toggle={toggle_107}>
+                                <ModalHeader toggle={toggle_107}>
+                                    <img src={img105} className="img-home"/>
+                                    <p className="p-modal">Seleccionar <span className="span-modal">rango de fechas</span>.</p>
+                                </ModalHeader>
+                                <div className="containerInput containerInputModal">
+                                    <input
+                                        className="search-form search-fechas-input"
+                                        placeholder="AÑO-MES-DIA"
+                                        value={busquedaSecond}
+                                        onChange={handleChangeSecond}
+                                    />
+                                </div>
+                                <ModalBody className="body-modal-fechas">
+                                    <div className="cont-select-modal">
+                                        {StoreDatos.a_o.map((c, i) => (
+                                            c.box.Id_attender === 'M1' ?
+                                            <div>
+                                                <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
+                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                </a>
+                                            </div> : ''
+                                        ))}
+                                    </div>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
+
                         <div className="box-prin margin-top-20 bg-transparent-white box-select-barra">
                             <div className="historial-text button-fecha-icon">
                                 <span className="icon"><ion-icon name="scan-outline"></ion-icon></span>
                                 {sede.data &&
                                 sede.data.map((sed) => (
                                     sedeSelect === sed.user_id ?
-                                    <div key={sed.user_id}>
-                                        BARRA: {sed.name}
-                                    </div> : ''
+                                        <div key={sed.user_id}>
+                                            BARRA: {sed.name}
+                                        </div> : ''
                                 ))}
                             </div>
                         </div>
@@ -479,7 +524,7 @@ function Principal() {
                                 </tbody>
                             </table>
                         </div>
-                        <div className="box-prin margin-top-20 display-flex-money bg-fin">
+                        <div className="box-prin margin-top-20 display-flex-money display-block-money bg-fin">
                             <div className="button-fin"><button className="button-fecha button-fecha-icon" onClick={() => toggle_101()}><span className="icon"><ion-icon name="layers-outline"></ion-icon></span>BARRAS</button></div>
 
                             <Modal isOpen={modal_101} toggle={toggle_101}>

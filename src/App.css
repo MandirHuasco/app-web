@@ -73,7 +73,7 @@ body{
   letter-spacing: 5px;
 }
 .total-money{
-  padding: 20px;
+  padding: 20px 0 20px 20px;
   font-size: 50px;
   font-weight: 600;
   color: #fff;
@@ -706,6 +706,16 @@ input:checked.check-form:after{
 .cont-sub-prin-pdf{
   filter: drop-shadow(2px 4px 6px black);
 }
+.button-fin-100{
+  width: 100%;
+}
+.table-cont-modal-scroll{
+  min-width: 400px;
+  margin: auto;
+}
+.table-overflow{
+  overflow: auto;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -733,12 +743,6 @@ input:checked.check-form:after{
   }
   .total-money{
     font-size: 30px;
-  }
-  .cantidad-ticket{
-    font-size: 14px;
-  }
-  .precio-ticket{
-    font-size: 14px;
   }
   .image-01{
     height: 300px;
@@ -769,6 +773,20 @@ input:checked.check-form:after{
   }
   .caja-cont{
     width: 150px;
+  }
+}
+@media only screen and (max-width: 650px){
+  .button-fin{
+    width: 100%;
+  }
+  .display-block-money{
+    display: block;
+  }
+  .cantidad-ticket{
+    font-size: 14px;
+  }
+  .precio-ticket{
+    font-size: 14px;
   }
 }
 @media only screen and (max-width: 600px){
@@ -902,5 +920,8 @@ input:checked.check-form:after{
   }
   .caja{
     padding: 0;
+  }
+  .table-cont{
+    width: 100%;
   }
 }

@@ -21,6 +21,9 @@ class StoreDatos {
         c_a: '',											                    //var user loggin
         c_b: '',																//var user pass
         c_c: false,																//messages filter error
+        c_d: '',                                                                //id_user
+        c_e: '',                                                                //id_attender
+        c_f: '',                                                                //id_business
 
         d_a: '',																//aux token key, api, ws
         d_b: '',																//aux service type
@@ -48,6 +51,8 @@ class StoreDatos {
     a_h = []
     a_f = []																				//rooms
     a_m = []                                                                                //id_user
+    a_n = []                                                                                //id_business
+    a_o = []                                                                                //GET-data
 
     b_b = (a) => {
         this.a_b = a.q								//textos
@@ -60,6 +65,11 @@ class StoreDatos {
         this.a_g = a.r
         this.a_f = a.q
         this.a_m = a.n
+        this.a_n = a.s								//configuracion cliente_2
+    }
+
+    b_f = (a) => {
+        this.a_o = a.q
     }
 
     c_a = (a, b) => { this.a_c[0][a] = b }
@@ -141,10 +151,13 @@ class StoreDatos {
             a_g: observable,
             a_f: observable,
             a_m: observable,
-            a_z:observable,
+            a_n: observable,
+            a_o: observable,
+            a_z: observable,
 
             b_b: action,
             b_e: action,
+            b_f: action,
             c_a: action,
         })
     }

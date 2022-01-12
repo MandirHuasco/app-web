@@ -113,9 +113,9 @@ class Conection {
                 StoreDatos.a_c[0].g_b.send(JSON.stringify({
                     event 		: 'USER_GET_REPORTS',
                     payload 	: {
-                        Id_user		    :   '0',
-                        Id_attender		:   'M4',
-                        Id_business 	:    1,
+                        Id_user		    :   StoreDatos.a_c[0].c_d,
+                        Id_attender		:   StoreDatos.a_c[0].c_f,
+                        Id_business 	:   StoreDatos.a_c[0].c_e,
                     },
                     app			:	'GoTicket',
                     token		:	'349uvjnfun3284n98j8SDF98SDJ9sd2jk8sd82j502kj'
@@ -123,6 +123,17 @@ class Conection {
             } catch (e){
                 console.log(e)
             }
+            Promise.resolve().then(
+
+                StoreDatos.a_c[0].g_b.onmessage = (e) => {
+                    if (e === undefined) return //manejar este envento vacio
+                    let xx = JSON.parse(e.data)
+
+                    if( xx.event === 'USER_GET_REPORTS' && xx.status === true){
+                        StoreDatos.b_f(xx.data)
+                    }
+                }
+            )
         }
     }
 }
