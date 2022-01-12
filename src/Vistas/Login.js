@@ -26,7 +26,7 @@ class Login extends  React.Component {
 
             Conection.a_q(0, 1, 0)
 
-            console.log(StoreDatos.a_m['Id_user'] + " al AQUI")
+            //console.log(StoreDatos.a_m['Id_user'] + " al AQUI")
 
         }).catch((e) => {
             let COnline = localStorage.getItem('COnline')

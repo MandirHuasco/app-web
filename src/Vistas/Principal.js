@@ -15,6 +15,8 @@ import img104 from '../img/home.png';
 import img105 from '../img/fecha.png';
 import img106 from '../img/ticket-004.png';
 import img107 from '../img/ticket-05.png';
+import Reportes from "./Reportes";
+import {Link} from "react-router-dom";
 
 const ticket = <FontAwesomeIcon icon={faTicketAlt} />;
 
@@ -153,8 +155,9 @@ function Principal() {
             if(fechaSelect){
                 localStorage.setItem("IdFecha", fechaSelect)
                 localStorage.setItem("IdData", dataBase[id_database][1])
+                setModal_102(false);
                 //console.log(fechaSelect + "Id-Fecha")
-                window.open('/Reportes', "_blank")
+                window.open('Reportes', "_blank")
             }
         }InvoiceClicked();
 
@@ -250,8 +253,8 @@ function Principal() {
                                                             <tr className="">
                                                                 <td className="cell-modal">{c.items[0].Name}</td>
                                                                 <td className="cell-modal">{c.items[0].Total_tickets}</td>
-                                                                <td className="cell-modal">s/. {c.items[0].Total_value}</td>
-                                                                <td className="cell-modal">s/. {c.items[0].Total_cash}</td>
+                                                                <td className="cell-modal">s/.{c.items[0].Total_value}</td>
+                                                                <td className="cell-modal">s/.{c.items[0].Total_cash}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -267,7 +270,7 @@ function Principal() {
                                             <tr className="tr-ticket">
                                                 <td className="ticket-icon"><img src={img102} className="ticket-img"/></td>
                                                 <td className="cantidad-ticket">{c.items[2].Total_tickets}</td>
-                                                <td className="precio-ticket">s/. {c.items[2].Total_cash}</td>
+                                                <td className="precio-ticket">s/.{c.items[2].Total_cash}</td>
                                             </tr>
                                         </a>
 
@@ -290,8 +293,8 @@ function Principal() {
                                                             <tr className="">
                                                                 <td className="cell-modal">{c.items[2].Name}</td>
                                                                 <td className="cell-modal">{c.items[2].Total_tickets}</td>
-                                                                <td className="cell-modal">s/. {c.items[2].Total_value}</td>
-                                                                <td className="cell-modal">s/. {c.items[2].Total_cash}</td>
+                                                                <td className="cell-modal">s/.{c.items[2].Total_value}</td>
+                                                                <td className="cell-modal">s/.{c.items[2].Total_cash}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -330,8 +333,8 @@ function Principal() {
                                                             <tr className="">
                                                                 <td className="cell-modal">{c.items[1].Name}</td>
                                                                 <td className="cell-modal">{c.items[1].Total_tickets}</td>
-                                                                <td className="cell-modal">s/. {c.items[1].Total_value}</td>
-                                                                <td className="cell-modal">s/. {c.items[1].Total_cash}</td>
+                                                                <td className="cell-modal">s/.{c.items[1].Total_value}</td>
+                                                                <td className="cell-modal">s/.{c.items[1].Total_cash}</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -351,8 +354,8 @@ function Principal() {
                                             <a key="106" className="display-contents" onClick={() => toggle_108()}>
                                                 <tr className="tr-ticket">
                                                     <td className="ticket-icon"><img src={img106} className="ticket-img"/></td>
-                                                    <td className="cantidad-ticket">{c.items[0].Total_tickets}</td>
-                                                    <td className="precio-ticket">s/. {c.items[0].Total_cash}</td>
+                                                    <td className="cantidad-ticket">{c.items[0].Total_tickets + c.items[1].Total_tickets}</td>
+                                                    <td className="precio-ticket">s/. {c.items[0].Total_cash + c.items[1].Total_cash}</td>
                                                 </tr>
                                             </a>
 
@@ -373,10 +376,10 @@ function Principal() {
                                                                     <td className="cell-modal">Total</td>
                                                                 </tr>
                                                                 <tr className="">
-                                                                    <td className="cell-modal">{c.items[0].Name}</td>
-                                                                    <td className="cell-modal">{c.items[0].Total_tickets}</td>
-                                                                    <td className="cell-modal">s/. {c.items[0].Total_value}</td>
-                                                                    <td className="cell-modal">s/. {c.items[0].Total_cash}</td>
+                                                                    <td className="cell-modal">{c.items[0].Name + ' Y ' + c.items[1].Name}</td>
+                                                                    <td className="cell-modal">{parseFloat(c.items[0].Total_tickets) + parseFloat(c.items[1].Total_tickets)}</td>
+                                                                    <td className="cell-modal">s/.{parseFloat(c.items[0].Total_value) + parseFloat(c.items[1].Total_value)}</td>
+                                                                    <td className="cell-modal">s/.{c.items[0].Total_cash + c.items[1].Total_cash}</td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -389,46 +392,6 @@ function Principal() {
                                                 </ModalFooter>
                                             </Modal>
 
-                                            <a key="106" className="display-contents" onClick={() => toggle_106()}>
-                                                <tr className="tr-ticket">
-                                                    <td className="ticket-icon"><img src={img107} className="ticket-img"/></td>
-                                                    <td className="cantidad-ticket">{c.items[1].Total_tickets}</td>
-                                                    <td className="precio-ticket">s/. {c.items[1].Total_cash}</td>
-                                                </tr>
-                                            </a>
-
-                                            <Modal isOpen={modal_106} toggle={toggle_106}>
-                                                <ModalHeader toggle={toggle_106}>
-                                                    <img src={img107} className="img-home"/>
-                                                    <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
-                                                </ModalHeader>
-                                                <ModalBody>
-                                                    <div className="table-overflow">
-                                                        <div className="cont-select-modal table-cont-modal-scroll">
-                                                            <table className="table-cont-modal">
-                                                                <tbody>
-                                                                <tr className="tr-head-modal">
-                                                                    <td className="cell-modal">Descripción</td>
-                                                                    <td className="cell-modal">Cantidad</td>
-                                                                    <td className="cell-modal">Unitario</td>
-                                                                    <td className="cell-modal">Total</td>
-                                                                </tr>
-                                                                <tr className="">
-                                                                    <td className="cell-modal">{c.items[1].Name}</td>
-                                                                    <td className="cell-modal">{c.items[1].Total_tickets}</td>
-                                                                    <td className="cell-modal">s/. {c.items[1].Total_value}</td>
-                                                                    <td className="cell-modal">s/. {c.items[1].Total_cash}</td>
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-
-                                                </ModalBody>
-                                                <ModalFooter>
-                                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                                </ModalFooter>
-                                            </Modal>
                                         </div>
                                     }
 
@@ -583,7 +546,9 @@ function Principal() {
                         </div>
                     </div>
                 </div>
-
+                {fechaSelect === '' ? '' :
+                    <Reportes/>
+                }
             </div>
     </>);
 

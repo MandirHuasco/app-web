@@ -64,10 +64,9 @@ function InvoiceTableRow(){
         suma = parseInt(data.total) + suma
     ));
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(()=>{
         FechaGetId();
-    },[])
+    },[infoFechas])
 
     return (<>
         {dataFechas.data &&

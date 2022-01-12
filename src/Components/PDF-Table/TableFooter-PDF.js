@@ -31,12 +31,14 @@ function InvoiceTableFooter(){
     const id = localStorage.getItem('IdFecha');
     const idData = localStorage.getItem('IdData');
 
+    const [infoFechas, setInfoFechas]= useState([]);
     const [dataFechas, setDataFechas]= useState([]);
 
     const FechaGetId = async() => {
 
         await axios.get("http://apita.traker.ga/monitoreo/get_info_data.php?database=" + idData + "&id_caja=" + id)
             .then(response => {
+                setInfoFechas(response.data.info);
                 setDataFechas(response.data);
             }).catch(error=>{
                 console.log(error);
@@ -49,10 +51,9 @@ function InvoiceTableFooter(){
         suma = parseInt(data.total) + suma
     ));
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(()=>{
         FechaGetId();
-    },[])
+    },[infoFechas])
 
     return (<>
         <View style={styles.row}>

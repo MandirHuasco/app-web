@@ -782,12 +782,6 @@ input:checked.check-form:after{
   .display-block-money{
     display: block;
   }
-  .cantidad-ticket{
-    font-size: 14px;
-  }
-  .precio-ticket{
-    font-size: 14px;
-  }
 }
 @media only screen and (max-width: 600px){
   .reporte-title{
@@ -825,10 +819,12 @@ input:checked.check-form:after{
     padding: 20px 0;
   }
   .cantidad-ticket{
+    font-size: 1rem;
     padding: 20px 10px;
     letter-spacing: initial;
   }
   .precio-ticket{
+    font-size: 1rem;
     padding: 20px 10px;
     letter-spacing: initial;
   }
@@ -875,7 +871,8 @@ input:checked.check-form:after{
     font-size: .8rem;
   }
   .historial-text{
-    font-size: 16px;
+    font-size: .8rem;
+    letter-spacing: 1px;
   }
   .fecha-hist-head{
     font-size: 16px;

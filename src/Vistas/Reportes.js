@@ -8,45 +8,45 @@ import img100 from "../img/head-pdf.png";
 
 function Reportes(){
 
-    const [stylea, setStylea] = useState("nav-bg-select");
-    const [styleA, setStyleA] = useState("");
+    const [styleaId, setStyleaId] = useState("nav-bg-select");
+    const [styleAId, setStyleAId] = useState("");
 
-    const [styleb, setStyleb] = useState("");
-    const [styleB, setStyleB] = useState("div-off");
+    const [stylebId, setStylebId] = useState("");
+    const [styleBId, setStyleBId] = useState("div-off");
 
-    const changeStyleA = () => {
+    const changeStyleAId = () => {
         console.log("menu-action-A");
 
-        setStyleA("div-on");
-        setStylea("nav-bg-select");
+        setStyleAId("div-on");
+        setStyleaId("nav-bg-select");
 
-        setStyleB("div-off");
-        setStyleb("");
+        setStyleBId("div-off");
+        setStylebId("");
     };
 
-    const changeStyleB = () => {
+    const changeStyleBId = () => {
         console.log("menu-action-B");
 
-        setStyleA("div-off");
-        setStylea("");
+        setStyleAId("div-off");
+        setStyleaId("");
 
-        setStyleB("div-on");
-        setStyleb("nav-bg-select");
+        setStyleBId("div-on");
+        setStylebId("nav-bg-select");
 
     };
 
-    const id = localStorage.getItem('IdFecha');
-    const idData = localStorage.getItem('IdData');
+    let id = localStorage.getItem('IdFecha');
+    let idData = localStorage.getItem('IdData');
 
-    const [infoFechas, setInfoFechas]= useState([]);
-    const [dataFechas, setDataFechas]= useState([]);
+    const [infoFechasId, setInfoFechasId]= useState([]);
+    const [dataFechasId, setDataFechasId]= useState([]);
 
     const FechaGetId = async() => {
 
         await axios.get("http://apita.traker.ga/monitoreo/get_info_data.php?database=" + idData + "&id_caja=" + id)
             .then(response => {
-                setInfoFechas(response.data.info);
-                setDataFechas(response.data);
+                setInfoFechasId(response.data.info);
+                setDataFechasId(response.data);
             }).catch(error=>{
                 console.log(error);
             })
@@ -54,7 +54,7 @@ function Reportes(){
 
     let estado = "";
 
-    if(parseInt(infoFechas.state) === 1){
+    if(parseInt(infoFechasId.state) === 1){
         estado = "Abierto";
     }else{
         estado = "Cerrado";
@@ -62,15 +62,15 @@ function Reportes(){
 
     let fechCierre = "";
 
-    if(infoFechas.feh_close === null){
+    if(infoFechasId.feh_close === null){
         fechCierre = "---";
     }else{
-        fechCierre = infoFechas.feh_close;
+        fechCierre = infoFechasId.feh_close;
     }
 
     let suma = 0;
 
-    dataFechas.data && dataFechas.data.map((data) =>(
+    dataFechasId.data && dataFechasId.data.map((data) =>(
        suma = parseInt(data.total) + suma
     ));
 
@@ -78,7 +78,7 @@ function Reportes(){
 
     useEffect(()=>{
         FechaGetId();
-    },[])
+    },[infoFechasId])
 
     return (<>
         <div className="App App-prin">
@@ -88,25 +88,25 @@ function Reportes(){
             <div className="nav-reporte">
                 <ul className="ul-reporte">
                     <li className="li-reporte">
-                        <a onClick={changeStyleA} className={stylea + " a-reporte button-report-icon"}><span className="icon-report"><ion-icon name="document-outline"></ion-icon></span>Web</a>
+                        <a onClick={changeStyleAId} className={styleaId + " a-reporte button-report-icon"}><span className="icon-report"><ion-icon name="document-outline"></ion-icon></span>Web</a>
                     </li>
                     <li className="li-reporte">
-                        <a onClick={changeStyleB} className={styleb + " a-reporte"}><span className="icon-report"><ion-icon name="download-outline"></ion-icon></span>Descargar PDF</a>
+                        <a onClick={changeStyleBId} className={stylebId + " a-reporte"}><span className="icon-report"><ion-icon name="download-outline"></ion-icon></span>Descargar PDF</a>
                     </li>
                 </ul>
             </div>
 
-            <div className={styleA + " cont-sub-prin"}>
+            <div className={styleAId + " cont-sub-prin"}>
                 <div className="prin-total prin-total-report-head">
                     <div>
                         <div className="box-prin">
-                            <div className="reporte-title">{infoFechas.name_company}</div>
-                            <div className="reporte-title-sub">{infoFechas.number_company}</div>
+                            <div className="reporte-title">{infoFechasId.name_company}</div>
+                            <div className="reporte-title-sub">{infoFechasId.number_company}</div>
 
                             <div className="reporte-body">
-                                <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="storefront-outline"></ion-icon></span>Establecimiento:</span> {infoFechas.establish}</div>
+                                <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="storefront-outline"></ion-icon></span>Establecimiento:</span> {infoFechasId.establish}</div>
                                 <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>Estado:</span> {estado}</div>
-                                <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>Fecha y hora de apertura:</span> {infoFechas.feh_open}</div>
+                                <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>Fecha y hora de apertura:</span> {infoFechasId.feh_open}</div>
                                 <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>Fecha y hora de cierre:</span> {fechCierre}</div>
                             </div>
                         </div>
@@ -124,8 +124,8 @@ function Reportes(){
                                     </tr>
                                 </thead>
                                 <tbody className="tbody-reporte">
-                                {dataFechas.data &&
-                                dataFechas.data.map((data) => (
+                                {dataFechasId.data &&
+                                dataFechasId.data.map((data) => (
                                     <tr key={idCont = idCont + 1}>
                                         <td className="td-reporte-body td-text-reporte">{data.name}</td>
                                         <td className="td-reporte-body">{parseFloat(data.cantidad)}</td>
@@ -143,7 +143,7 @@ function Reportes(){
                 </div>
             </div>
 
-            <div className={styleB + " cont-sub-prin cont-sub-prin-pdf"}>
+            <div className={styleBId + " cont-sub-prin cont-sub-prin-pdf"}>
                 <PDFViewer style={{width: "100%", height: "90vh", margin: "auto",}}>
                     <Document>
                         <Page
@@ -177,10 +177,10 @@ function Reportes(){
                                     fontSize: 20,
                                     lineHeight: 1,
                                     paddingTop: "20px",
-                                    paddingBottom: 5,}}>{infoFechas.name_company}</Text>
+                                    paddingBottom: 5,}}>{infoFechasId.name_company}</Text>
                                 <Text style={{
                                     textAlign: "center",
-                                    fontSize: 15,}}>{infoFechas.number_company}</Text>
+                                    fontSize: 15,}}>{infoFechasId.number_company}</Text>
                             </View>
 
                             <View
@@ -194,7 +194,7 @@ function Reportes(){
                                 <Text style={{
                                     color: "#5d4e6e",
                                     fontSize: 12,
-                                    paddingBottom: 5,}}>Establecimiento: {infoFechas.establish}</Text>
+                                    paddingBottom: 5,}}>Establecimiento: {infoFechasId.establish}</Text>
 
                                 <Text style={{
                                     color: "#5d4e6e",
@@ -204,7 +204,7 @@ function Reportes(){
                                 <Text style={{
                                     color: "#5d4e6e",
                                     fontSize: 12,
-                                    paddingBottom: 5,}}>Fecha y hora de apertura: {infoFechas.feh_open}</Text>
+                                    paddingBottom: 5,}}>Fecha y hora de apertura: {infoFechasId.feh_open}</Text>
 
                                 <Text style={{
                                     color: "#5d4e6e",
@@ -241,7 +241,7 @@ function Reportes(){
                                 <Text style={{
                                     width: '50%',
                                     color: "#757575",
-                                    fontSize: 12,}}>{infoFechas.name_company}</Text>
+                                    fontSize: 12,}}>{infoFechasId.name_company}</Text>
                             </View>
 
                         </Page>
