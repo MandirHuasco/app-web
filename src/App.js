@@ -5,7 +5,6 @@ import {observer} from "mobx-react";
 import StoreDatos from "./functions/Store";
 import Conection from "./functions/Conection";
 import img001 from "./img/mini-logo-01.png";
-import Page2 from "./Vistas/Principal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faFileExcel } from "@fortawesome/free-solid-svg-icons";
@@ -46,20 +45,6 @@ class App extends React.Component{
             Conection.a_o(e, 'pr')
             StoreDatos.c_a('g_d', false)
         }
-
-
-        Conection.a_n(StoreDatos.a_c[0].g_m, 'lo').then((b) => {
-            console.log(b)
-
-            //Eventscolas.a_d(window.localStorage.token)
-        }).catch((e) => {
-            console.log(e, 'Connection Error')
-        })
-        StoreDatos.a_c[0].g_n.onclose = (e) => {
-            Conection.a_o(e, 'lo')
-            StoreDatos.c_a('g_p', false)
-        }
-
 
     }
 
@@ -142,7 +127,7 @@ class App extends React.Component{
                     </div>
                     <div className="cont-form">
                         <div className="mini-logo-01">
-                            <img src={img001} className="img-mini-logo-01"/>
+                            <img src={img001} className="img-mini-logo-01" alt="Image-01" />
                         </div>
                         <div className="cont-form-sub">
                             <form onSubmit={this.Validar}>

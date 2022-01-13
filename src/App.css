@@ -36,7 +36,7 @@ body{
 .prin-total{
   width: 100%;
   display: inline-block;
-  margin: 100px auto;
+  margin: 50px auto;
 }
 .money-icon{
   margin: auto;
@@ -53,6 +53,18 @@ body{
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #fff;
+}
+.display-block{
+  display: block;
+}
+.float-left{
+  float: left;
+}
+.float-right{
+  float: right;
+}
+.button-fin-sede{
+  width: 100% !important;
 }
 .cont-ticket{
   width: 100%;
@@ -715,6 +727,12 @@ input:checked.check-form:after{
 }
 .table-overflow{
   overflow: auto;
+}
+.empresa{
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  color: #fff;
+  padding: 20px 0;
 }
 
 @keyframes App-logo-spin {

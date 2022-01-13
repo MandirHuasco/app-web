@@ -13,6 +13,7 @@ class StoreDatos {
         a_d: false,																//module reception
         a_e: false,																//barra
         a_f: false,																//admin
+        a_i: true,                                                              //superadmin
 
         b_a: '',																//si es miembro o no
         b_b: '',																//id user
@@ -53,6 +54,7 @@ class StoreDatos {
     a_m = []                                                                                //id_user
     a_n = []                                                                                //id_business
     a_o = []                                                                                //GET-data
+    a_p = []                                                                                //GET-data-admin
 
     b_b = (a) => {
         this.a_b = a.q								//textos
@@ -66,6 +68,7 @@ class StoreDatos {
         this.a_f = a.q
         this.a_m = a.n
         this.a_n = a.s								//configuracion cliente_2
+        this.a_p = a.ca
     }
 
     b_f = (a) => {
@@ -153,6 +156,7 @@ class StoreDatos {
             a_m: observable,
             a_n: observable,
             a_o: observable,
+            a_p: observable,
             a_z: observable,
 
             b_b: action,
