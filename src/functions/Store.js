@@ -68,7 +68,7 @@ class StoreDatos {
         this.a_f = a.q
         this.a_m = a.n
         this.a_n = a.s								//configuracion cliente_2
-        this.a_p = a.ca
+        this.a_p = a.bd
     }
 
     b_f = (a) => {

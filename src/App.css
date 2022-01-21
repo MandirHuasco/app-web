@@ -729,10 +729,17 @@ input:checked.check-form:after{
   overflow: auto;
 }
 .empresa{
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
   font-size: 1.5rem;
   letter-spacing: 5px;
+  background: #323a8180;
   color: #fff;
   padding: 20px 0;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  border-radius: 20px;
 }
 
 @keyframes App-logo-spin {
@@ -799,6 +806,9 @@ input:checked.check-form:after{
   }
   .display-block-money{
     display: block;
+  }
+  .empresa{
+    width: 90%;
   }
 }
 @media only screen and (max-width: 600px){

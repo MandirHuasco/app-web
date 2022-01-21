@@ -27,8 +27,56 @@ function Principal() {
     let AdminUser = false;
     const [sede, setSede]= useState([]);
 
+    const [TotalMoney, setTotalMoney]= useState(0);
+    const [TotalTickets, setTotalTickets]= useState(0);
+
+    const [TotalMoneyM, setTotalMoneyM]= useState(0);
+    const [TotalTicketsM, setTotalTicketsM]= useState(0);
+
+    const [SubTotalMoneyM1, setSubTotalMoneyM1]= useState(0);
+    const [SubTotalTicketsM1, setSubTotalTicketsM1]= useState(0);
+    const [SubDescM1, setSubDescM1]= useState('');
+    const [SubUnitM1, setSubUnitM1]= useState(0);
+
+    const [SubTotalMoneyM2, setSubTotalMoneyM2]= useState(0);
+    const [SubTotalTicketsM2, setSubTotalTicketsM2]= useState(0);
+    const [SubDescM2, setSubDescM2]= useState('');
+    const [SubUnitM2, setSubUnitM2]= useState(0);
+
+    const [TotalTicketsM1, setTotalTicketsM1]= useState(0);
+    const [TotalMoneyM1, setTotalMoneyM1]= useState(0);
+
+    const [SubTotalMoneyM1Sub1, setSubTotalMoneyM1Sub1]= useState(0);
+    const [SubTotalTicketsM1Sub1, setSubTotalTicketsM1Sub1]= useState(0);
+    const [SubTotalMoneyM1DescSub1, setSubTotalMoneyM1DescSub1]= useState('');
+    const [SubTotalTicketsM1UnitSub1, setSubTotalTicketsM1UnitSub1]= useState(0);
+
+    const [SubTotalMoneyM1Sub2, setSubTotalMoneyM1Sub2]= useState(0);
+    const [SubTotalTicketsM1Sub2, setSubTotalTicketsM1Sub2]= useState(0);
+    const [SubTotalMoneyM1DescSub2, setSubTotalMoneyM1DescSub2]= useState('');
+    const [SubTotalTicketsM1UnitSub2, setSubTotalTicketsM1UnitSub2]= useState(0);
+
+    const [SubTotalMoneyM1Sub3, setSubTotalMoneyM1Sub3]= useState(0);
+    const [SubTotalTicketsM1Sub3, setSubTotalTicketsM1Sub3]= useState(0);
+    const [SubTotalMoneyM1DescSub3, setSubTotalMoneyM1DescSub3]= useState('');
+    const [SubTotalTicketsM1UnitSub3, setSubTotalTicketsM1UnitSub3]= useState(0);
+
+    const [TotalTicketsM2, setTotalTicketsM2]= useState(0);
+    const [TotalMoneyM2, setTotalMoneyM2]= useState(0);
+
+    const [SubTotalMoneyM2Sub1, setSubTotalMoneyM2Sub1]= useState(0);
+    const [SubTotalTicketsM2Sub1, setSubTotalTicketsM2Sub1]= useState(0);
+    const [SubTotalMoneyM2DescSub1, setSubTotalMoneyM2DescSub1]= useState('');
+    const [SubTotalTicketsM2UnitSub1, setSubTotalTicketsM2UnitSub1]= useState(0);
+
+    const [SubTotalMoneyM2Sub2, setSubTotalMoneyM2Sub2]= useState(0);
+    const [SubTotalTicketsM2Sub2, setSubTotalTicketsM2Sub2]= useState(0);
+    const [SubTotalMoneyM2DescSub2, setSubTotalMoneyM2DescSub2]= useState('');
+    const [SubTotalTicketsM2UnitSub2, setSubTotalTicketsM2UnitSub2]= useState(0);
+
+
     if(StoreDatos.a_n[0]) {
-        console.log("TRUEEEEEEEEEEEEEEE")
+        //console.log("TRUE")
         AdminUser = true;
         //id_database = StoreDatos.a_m[0].Id_user;
     } else {
@@ -74,6 +122,12 @@ function Principal() {
     const [modal_107, setModal_107] = useState(false);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [modal_108, setModal_108] = useState(false);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [modal_109, setModal_109] = useState(false);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [modal_110, setModal_1010] = useState(false);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [modal_111, setModal_1011] = useState(false);
 
     const toggle_101 = () => setModal_101(!modal_101);
     const toggle_102 = () => setModal_102(!modal_102);
@@ -83,6 +137,9 @@ function Principal() {
     const toggle_106 = () => setModal_106(!modal_106);
     const toggle_107 = () => setModal_107(!modal_107);
     const toggle_108 = () => setModal_108(!modal_108);
+    const toggle_109 = () => setModal_109(!modal_109);
+    const toggle_110 = () => setModal_1010(!modal_110);
+    const toggle_111 = () => setModal_1011(!modal_111);
 
     const [fechas, setFechas]= useState([]);
     const [tablaFechas, setTablaFechas]= useState([]);
@@ -181,7 +238,7 @@ function Principal() {
             FechaGet();
             FechaGetSecond();
             setModal_108(false);
-            console.log(sedeAdminSelect + "SEDE")
+            //console.log(sedeAdminSelect + "SEDE")
         }InvoiceClicked();
 
     }, [sedeAdminSelect])
@@ -205,6 +262,63 @@ function Principal() {
             if(fechaRangoSelect){
                 //console.log(sedeSelect + " Id-Sede")
                 setModal_107(false);
+
+                StoreDatos.a_p.map((c) => (
+                    c.box.Date_start_report === fechaRangoSelect ?
+                        c.box.Id_user === 0 ?
+                            c.box.Id_attender === 'M2' ?
+                                '' : c.box.Id_attender === 'M3' ?
+                                setTotalMoney(c.items[0].Total_cash + c.items[1].Total_cash) &
+                                setTotalTickets(c.items[0].Total_tickets + c.items[1].Total_tickets) &
+                                setSubTotalMoneyM1(c.items[0].Total_cash + c.items[1].Total_cash) &
+                                setSubTotalTicketsM1(c.items[0].Total_tickets + c.items[1].Total_tickets) &
+                                setSubDescM1(c.items[0].Name + ' Y ' + c.items[1].Name) &
+                                setSubUnitM1(parseFloat(c.items[0].Total_value) + parseFloat(c.items[1].Total_value))
+                            :
+                                c.box.Id_attender === 'M1' ?
+                                    setTotalMoneyM1(c.items[0].Total_cash + c.items[1].Total_cash + c.items[2].Total_cash) &
+                                    setTotalTicketsM1(c.items[0].Total_tickets + c.items[1].Total_tickets + c.items[2].Total_tickets) &
+                                    setSubTotalMoneyM1Sub1(c.items[0].Total_cash) &
+                                    setSubTotalTicketsM1Sub1(c.items[0].Total_tickets) &
+                                    setSubTotalMoneyM1Sub2(c.items[1].Total_cash) &
+                                    setSubTotalTicketsM1Sub2(c.items[1].Total_tickets) &
+                                    setSubTotalMoneyM1Sub3(c.items[2].Total_cash) &
+                                    setSubTotalTicketsM1Sub3(c.items[2].Total_tickets) &
+
+                                    setSubTotalMoneyM1DescSub1(c.items[0].Name) &
+                                    setSubTotalTicketsM1UnitSub1(c.items[0].Total_value) &
+                                    setSubTotalMoneyM1DescSub2(c.items[1].Name) &
+                                    setSubTotalTicketsM1UnitSub2(c.items[1].Total_value) &
+                                    setSubTotalMoneyM1DescSub3(c.items[2].Name) &
+                                    setSubTotalTicketsM1UnitSub3(c.items[2].Total_value)
+                                    : ''
+                        :
+                            c.box.Id_user === 1 ?
+                                c.box.Id_attender === 'M2' ?
+                                    '' : c.box.Id_attender === 'M3' ?
+                                    setTotalMoneyM(c.items[0].Total_cash + c.items[1].Total_cash) &
+                                    setTotalTicketsM(c.items[0].Total_tickets + c.items[1].Total_tickets) &
+                                    setSubTotalMoneyM2(c.items[0].Total_cash + c.items[1].Total_cash) &
+                                    setSubTotalTicketsM2(c.items[0].Total_tickets + c.items[1].Total_tickets) &
+                                    setSubDescM2(c.items[0].Name + ' Y ' + c.items[1].Name) &
+                                    setSubUnitM2(parseFloat(c.items[0].Total_value) + parseFloat(c.items[1].Total_value))
+                                    :
+                                    c.box.Id_attender === 'M1' ?
+                                        setTotalMoneyM2(c.items[0].Total_cash + c.items[1].Total_cash) &
+                                        setTotalTicketsM2(c.items[0].Total_tickets + c.items[1].Total_tickets) &
+                                        setSubTotalMoneyM2Sub1(c.items[0].Total_cash) &
+                                        setSubTotalTicketsM2Sub1(c.items[0].Total_tickets) &
+                                        setSubTotalMoneyM2Sub2(c.items[1].Total_cash) &
+                                        setSubTotalTicketsM2Sub2(c.items[1].Total_tickets) &
+
+                                        setSubTotalMoneyM2DescSub1(c.items[0].Name) &
+                                        setSubTotalTicketsM2UnitSub1(c.items[0].Total_value) &
+                                        setSubTotalMoneyM2DescSub2(c.items[1].Name) &
+                                        setSubTotalTicketsM2UnitSub2(c.items[1].Total_value)
+                                        : ''
+                                : ''
+                    : ''
+                ))
             }
         }InvoiceClickedFecha();
 
@@ -218,217 +332,381 @@ function Principal() {
             </div>
 
             <div className="cont-sub-prin">
-                <div className="empresa">{StoreDatos.a_m.Business_name}</div>
                 <div className="prin-total">
-                    {StoreDatos.a_o.map((c, i) => (
+                    <div className="empresa">
+                        {sedeAdminSelect === 0 ?
+                            'ZONA CENTRO' : 'ZONA NORTE'
+                        }
+                    </div>
+                    {StoreDatos.a_p.map((c) => (
                         c.box.Date_start_report === fechaRangoSelect ?
                             <div className="display-contents">
-                                <div className="display-flex-money">
-                                    <div className="money-icon">S/.</div>
-                                    {c.box.Id_attender === 'M3' ?
-                                        <div className="total-money">
-                                            {c.items[0].Total_cash + c.items[1].Total_cash}
-                                        </div> :
-                                        <div className="total-money">
-                                            {c.items[0].Total_cash + c.items[1].Total_cash + c.items[2].Total_cash}
-                                        </div>
-                                    }
-                                </div>
-                                <div className="cont-ticket">
-                                    <i className="ticket">{ticket}</i>
-                                    {c.box.Id_attender === 'M3' ?
-                                        <div className="ticket-nro">{c.items[0].Total_tickets + c.items[1].Total_tickets}</div>
-                                        :
-                                        <div className="ticket-nro">{c.items[0].Total_tickets + c.items[1].Total_tickets + c.items[2].Total_tickets}</div>
-                                    }
-                                </div>
-                                <div className="box-prin margin-top-20 bg-transparent-white">
-                                    <div className="historial-text">SELECCIONE PARA VER DETALLES</div>
-                                </div>
-                                <div className="box-prin margin-top-20">
-                                    <table className="table-cont">
-                                        <tbody>
-                                        {c.box.Id_attender === 'M1' ?
-                                            <div className="display-contents">
-                                                <a key="103" className="display-contents" onClick={() => toggle_103()}>
-                                                    <tr className="tr-ticket">
-                                                        <td className="ticket-icon"><img src={img101} className="ticket-img"/></td>
-                                                        <td className="cantidad-ticket">{c.items[0].Total_tickets}</td>
-                                                        <td className="precio-ticket">s/. {c.items[0].Total_cash}</td>
-                                                    </tr>
-                                                </a>
-
-                                                <Modal isOpen={modal_103} toggle={toggle_103}>
-                                                    <ModalHeader toggle={toggle_103}>
-                                                        <img src={img101} className="img-home"/>
-                                                        <p className="p-modal">Detalles de <span className="span-modal">ENTRADAS</span>.</p>
-                                                    </ModalHeader>
-                                                    <ModalBody>
-                                                        <div className="table-overflow">
-                                                            <div className="cont-select-modal table-cont-modal-scroll">
-                                                                <table className="table-cont-modal">
-                                                                    <thead>
-                                                                    <tr className="tr-head-modal">
-                                                                        <td className="cell-modal">Descripción</td>
-                                                                        <td className="cell-modal">Cantidad</td>
-                                                                        <td className="cell-modal">Unitario</td>
-                                                                        <td className="cell-modal">Total</td>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                    <tr className="">
-                                                                        <td className="cell-modal">{c.items[0].Name}</td>
-                                                                        <td className="cell-modal">{c.items[0].Total_tickets}</td>
-                                                                        <td className="cell-modal">s/.{c.items[0].Total_value}</td>
-                                                                        <td className="cell-modal">s/.{c.items[0].Total_cash}</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
+                                {c.box.Id_user === 0 && sedeAdminSelect === 0 ?
+                                    <>
+                                        {c.box.Id_attender === 'M2' ? '' :
+                                            <>
+                                                {c.box.Id_attender === 'M3' ?
+                                                    '' :
+                                                    <>
+                                                        <div className="display-flex-money">
+                                                            <div className="money-icon">S/.</div>
+                                                            <div className="total-money">
+                                                                {TotalMoney + TotalMoneyM1}
                                                             </div>
                                                         </div>
-                                                    </ModalBody>
-                                                    <ModalFooter>
-                                                        <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                                    </ModalFooter>
-                                                </Modal>
-
-                                                <a key="104" className="display-contents" onClick={() => toggle_104()}>
-                                                    <tr className="tr-ticket">
-                                                        <td className="ticket-icon"><img src={img102} className="ticket-img"/></td>
-                                                        <td className="cantidad-ticket">{c.items[2].Total_tickets}</td>
-                                                        <td className="precio-ticket">s/.{c.items[2].Total_cash}</td>
-                                                    </tr>
-                                                </a>
-
-                                                <Modal isOpen={modal_104} toggle={toggle_104}>
-                                                    <ModalHeader toggle={toggle_104}>
-                                                        <img src={img102} className="img-home"/>
-                                                        <p className="p-modal">Detalles de <span className="span-modal">COCHES</span>.</p>
-                                                    </ModalHeader>
-                                                    <ModalBody>
-                                                        <div className="table-overflow">
-                                                            <div className="cont-select-modal table-cont-modal-scroll">
-                                                                <table className="table-cont-modal">
-                                                                    <tbody>
-                                                                    <tr className="tr-head-modal">
-                                                                        <td className="cell-modal">Descripción</td>
-                                                                        <td className="cell-modal">Cantidad</td>
-                                                                        <td className="cell-modal">Unitario</td>
-                                                                        <td className="cell-modal">Total</td>
-                                                                    </tr>
-                                                                    <tr className="">
-                                                                        <td className="cell-modal">{c.items[2].Name}</td>
-                                                                        <td className="cell-modal">{c.items[2].Total_tickets}</td>
-                                                                        <td className="cell-modal">s/.{c.items[2].Total_value}</td>
-                                                                        <td className="cell-modal">s/.{c.items[2].Total_cash}</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                        <div className="cont-ticket">
+                                                            <i className="ticket">{ticket}</i>
+                                                            <div className="ticket-nro">{TotalTickets + TotalTicketsM1}</div>
                                                         </div>
-                                                    </ModalBody>
-                                                    <ModalFooter>
-                                                        <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                                    </ModalFooter>
-                                                </Modal>
+                                                        <div className="box-prin margin-top-20">
+                                                            <table className="table-cont">
+                                                                <tbody>
+                                                                <div className="display-contents">
+                                                                    <a key="103" className="display-contents" onClick={() => toggle_109()}>
+                                                                        <tr className="tr-ticket">
+                                                                            <td className="ticket-icon"><img src={img101} className="ticket-img"/></td>
+                                                                            <td className="cantidad-ticket">{SubTotalTicketsM1Sub1}</td>
+                                                                            <td className="precio-ticket">s/. {SubTotalMoneyM1Sub1}</td>
+                                                                        </tr>
+                                                                    </a>
 
-                                                <a key="105" className="display-contents" onClick={() => toggle_105()}>
-                                                    <tr className="tr-ticket">
-                                                        <td className="ticket-icon"><img src={img103} className="ticket-img"/></td>
-                                                        <td className="cantidad-ticket">{c.items[1].Total_tickets}</td>
-                                                        <td className="precio-ticket">s/. {c.items[1].Total_cash}</td>
-                                                    </tr>
-                                                </a>
+                                                                    <Modal isOpen={modal_109} toggle={toggle_109}>
+                                                                        <ModalHeader toggle={toggle_109}>
+                                                                            <img src={img101} className="img-home"/>
+                                                                            <p className="p-modal">Detalles de <span className="span-modal">ENTRADAS</span>.</p>
+                                                                        </ModalHeader>
+                                                                        <ModalBody>
+                                                                            <div className="table-overflow">
+                                                                                <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                    <table className="table-cont-modal">
+                                                                                        <thead>
+                                                                                        <tr className="tr-head-modal">
+                                                                                            <td className="cell-modal">Descripción</td>
+                                                                                            <td className="cell-modal">Cantidad</td>
+                                                                                            <td className="cell-modal">Unitario</td>
+                                                                                            <td className="cell-modal">Total</td>
+                                                                                        </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                        <tr className="">
+                                                                                            <td className="cell-modal">{SubTotalMoneyM1DescSub1}</td>
+                                                                                            <td className="cell-modal">{SubTotalTicketsM1Sub1}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalTicketsM1UnitSub1}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalMoneyM1Sub1}</td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ModalBody>
+                                                                        <ModalFooter>
+                                                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                        </ModalFooter>
+                                                                    </Modal>
 
-                                                <Modal isOpen={modal_105} toggle={toggle_105}>
-                                                    <ModalHeader toggle={toggle_105}>
-                                                        <img src={img103} className="img-home"/>
-                                                        <p className="p-modal">Detalles de <span className="span-modal">MOTOS</span>.</p>
-                                                    </ModalHeader>
-                                                    <ModalBody>
-                                                        <div className="table-overflow">
-                                                            <div className="cont-select-modal table-cont-modal-scroll">
-                                                                <table className="table-cont-modal">
-                                                                    <tbody>
-                                                                    <tr className="tr-head-modal">
-                                                                        <td className="cell-modal">Descripción</td>
-                                                                        <td className="cell-modal">Cantidad</td>
-                                                                        <td className="cell-modal">Unitario</td>
-                                                                        <td className="cell-modal">Total</td>
-                                                                    </tr>
-                                                                    <tr className="">
-                                                                        <td className="cell-modal">{c.items[1].Name}</td>
-                                                                        <td className="cell-modal">{c.items[1].Total_tickets}</td>
-                                                                        <td className="cell-modal">s/.{c.items[1].Total_value}</td>
-                                                                        <td className="cell-modal">s/.{c.items[1].Total_cash}</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                    <a key="104" className="display-contents" onClick={() => toggle_110()}>
+                                                                        <tr className="tr-ticket">
+                                                                            <td className="ticket-icon"><img src={img102} className="ticket-img"/></td>
+                                                                            <td className="cantidad-ticket">{SubTotalTicketsM1Sub3}</td>
+                                                                            <td className="precio-ticket">s/.{SubTotalMoneyM1Sub3}</td>
+                                                                        </tr>
+                                                                    </a>
+
+                                                                    <Modal isOpen={modal_110} toggle={toggle_110}>
+                                                                        <ModalHeader toggle={toggle_110}>
+                                                                            <img src={img102} className="img-home"/>
+                                                                            <p className="p-modal">Detalles de <span className="span-modal">COCHES</span>.</p>
+                                                                        </ModalHeader>
+                                                                        <ModalBody>
+                                                                            <div className="table-overflow">
+                                                                                <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                    <table className="table-cont-modal">
+                                                                                        <tbody>
+                                                                                        <tr className="tr-head-modal">
+                                                                                            <td className="cell-modal">Descripción</td>
+                                                                                            <td className="cell-modal">Cantidad</td>
+                                                                                            <td className="cell-modal">Unitario</td>
+                                                                                            <td className="cell-modal">Total</td>
+                                                                                        </tr>
+                                                                                        <tr className="">
+                                                                                            <td className="cell-modal">{SubTotalMoneyM1DescSub3}</td>
+                                                                                            <td className="cell-modal">{SubTotalTicketsM1Sub3}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalTicketsM1UnitSub3}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalMoneyM1Sub3}</td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ModalBody>
+                                                                        <ModalFooter>
+                                                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                        </ModalFooter>
+                                                                    </Modal>
+
+                                                                    <a key="105" className="display-contents" onClick={() => toggle_111()}>
+                                                                        <tr className="tr-ticket">
+                                                                            <td className="ticket-icon"><img src={img103} className="ticket-img"/></td>
+                                                                            <td className="cantidad-ticket">{SubTotalTicketsM1Sub2}</td>
+                                                                            <td className="precio-ticket">s/. {SubTotalMoneyM1Sub2}</td>
+                                                                        </tr>
+                                                                    </a>
+
+                                                                    <Modal isOpen={modal_111} toggle={toggle_111}>
+                                                                        <ModalHeader toggle={toggle_111}>
+                                                                            <img src={img103} className="img-home"/>
+                                                                            <p className="p-modal">Detalles de <span className="span-modal">MOTOS</span>.</p>
+                                                                        </ModalHeader>
+                                                                        <ModalBody>
+                                                                            <div className="table-overflow">
+                                                                                <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                    <table className="table-cont-modal">
+                                                                                        <tbody>
+                                                                                        <tr className="tr-head-modal">
+                                                                                            <td className="cell-modal">Descripción</td>
+                                                                                            <td className="cell-modal">Cantidad</td>
+                                                                                            <td className="cell-modal">Unitario</td>
+                                                                                            <td className="cell-modal">Total</td>
+                                                                                        </tr>
+                                                                                        <tr className="">
+                                                                                            <td className="cell-modal">{SubTotalMoneyM1DescSub2}</td>
+                                                                                            <td className="cell-modal">{SubTotalTicketsM1Sub2}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalTicketsM1UnitSub2}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalMoneyM1Sub2}</td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </ModalBody>
+                                                                        <ModalFooter>
+                                                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                        </ModalFooter>
+                                                                    </Modal>
+
+                                                                    <a key="106" className="display-contents" onClick={() => toggle_104()}>
+                                                                        <tr className="tr-ticket">
+                                                                            <td className="ticket-icon"><img src={img106} className="ticket-img"/></td>
+                                                                            <td className="cantidad-ticket">{SubTotalTicketsM1}</td>
+                                                                            <td className="precio-ticket">s/. {SubTotalMoneyM1}</td>
+                                                                        </tr>
+                                                                    </a>
+
+                                                                    <Modal isOpen={modal_104} toggle={toggle_104}>
+                                                                        <ModalHeader toggle={toggle_104}>
+                                                                            <img src={img106} className="img-home"/>
+                                                                            <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
+                                                                        </ModalHeader>
+                                                                        <ModalBody>
+                                                                            <div className="table-overflow">
+                                                                                <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                    <table className="table-cont-modal">
+                                                                                        <tbody>
+                                                                                        <tr className="tr-head-modal">
+                                                                                            <td className="cell-modal">Descripción</td>
+                                                                                            <td className="cell-modal">Cantidad</td>
+                                                                                            <td className="cell-modal">Unitario</td>
+                                                                                            <td className="cell-modal">Total</td>
+                                                                                        </tr>
+                                                                                        <tr className="">
+                                                                                            <td className="cell-modal">{SubDescM1}</td>
+                                                                                            <td className="cell-modal">{SubTotalTicketsM1}</td>
+                                                                                            <td className="cell-modal">s/.{SubUnitM1}</td>
+                                                                                            <td className="cell-modal">s/.{SubTotalMoneyM1}</td>
+                                                                                        </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </ModalBody>
+                                                                        <ModalFooter>
+                                                                            <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                        </ModalFooter>
+                                                                    </Modal>
+
+
+                                                                </div>
+                                                                <tr>
+                                                                    <td colSpan="5" className="fecha-ticket">
+                                                                        {c.box.Date_start_report.toString().split('T')[0]}
+                                                                        {' ' + dataBase[sedeAdminSelect][1]}</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                    </ModalBody>
-                                                    <ModalFooter>
-                                                        <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                                    </ModalFooter>
-                                                </Modal>
-                                            </div>
-
-
-                                            :
-
-                                            <div className="display-contents">
-                                                <a key="106" className="display-contents" onClick={() => toggle_106()}>
-                                                    <tr className="tr-ticket">
-                                                        <td className="ticket-icon"><img src={img106} className="ticket-img"/></td>
-                                                        <td className="cantidad-ticket">{c.items[0].Total_tickets + c.items[1].Total_tickets}</td>
-                                                        <td className="precio-ticket">s/. {c.items[0].Total_cash + c.items[1].Total_cash}</td>
-                                                    </tr>
-                                                </a>
-
-                                                <Modal isOpen={modal_106} toggle={toggle_106}>
-                                                    <ModalHeader toggle={toggle_106}>
-                                                        <img src={img106} className="img-home"/>
-                                                        <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
-                                                    </ModalHeader>
-                                                    <ModalBody>
-                                                        <div className="table-overflow">
-                                                            <div className="cont-select-modal table-cont-modal-scroll">
-                                                                <table className="table-cont-modal">
-                                                                    <tbody>
-                                                                    <tr className="tr-head-modal">
-                                                                        <td className="cell-modal">Descripción</td>
-                                                                        <td className="cell-modal">Cantidad</td>
-                                                                        <td className="cell-modal">Unitario</td>
-                                                                        <td className="cell-modal">Total</td>
-                                                                    </tr>
-                                                                    <tr className="">
-                                                                        <td className="cell-modal">{c.items[0].Name + ' Y ' + c.items[1].Name}</td>
-                                                                        <td className="cell-modal">{parseFloat(c.items[0].Total_tickets) + parseFloat(c.items[1].Total_tickets)}</td>
-                                                                        <td className="cell-modal">s/.{parseFloat(c.items[0].Total_value) + parseFloat(c.items[1].Total_value)}</td>
-                                                                        <td className="cell-modal">s/.{c.items[0].Total_cash + c.items[1].Total_cash}</td>
-                                                                    </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-
-                                                    </ModalBody>
-                                                    <ModalFooter>
-                                                        <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
-                                                    </ModalFooter>
-                                                </Modal>
-
-                                            </div>
+                                                    </>
+                                                }
+                                            </>
                                         }
+                                    </>
+                                    :
+                                    <>
+                                        {c.box.Id_user === 1 && sedeAdminSelect === 1 ?
+                                            <>
+                                                {c.box.Id_attender === 'M2' ? '' :
+                                                    <>
+                                                        {c.box.Id_attender === 'M3' ?
+                                                            '' :
+                                                            <>
+                                                                <div className="display-flex-money">
+                                                                    <div className="money-icon">S/.</div>
+                                                                    <div className="total-money">
+                                                                        {TotalMoneyM + TotalMoneyM2}
+                                                                    </div>
+                                                                </div>
+                                                                <div className="cont-ticket">
+                                                                    <i className="ticket">{ticket}</i>
+                                                                    <div className="ticket-nro">{TotalTicketsM + TotalTicketsM2}</div>
+                                                                </div>
+                                                                <div className="box-prin margin-top-20">
+                                                                    <table className="table-cont">
+                                                                        <tbody>
+                                                                        <div className="display-contents">
+                                                                            <a key="103" className="display-contents" onClick={() => toggle_103()}>
+                                                                                <tr className="tr-ticket">
+                                                                                    <td className="ticket-icon"><img src={img101} className="ticket-img"/></td>
+                                                                                    <td className="cantidad-ticket">{SubTotalTicketsM2Sub1}</td>
+                                                                                    <td className="precio-ticket">s/. {SubTotalMoneyM2Sub1}</td>
+                                                                                </tr>
+                                                                            </a>
 
-                                        <tr>
-                                            <td colSpan="5" className="fecha-ticket">
-                                                {c.box.Date_start_report.toString().split('T')[0]}
-                                                {' ' + dataBase[sedeAdminSelect][1]}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                                            <Modal isOpen={modal_103} toggle={toggle_103}>
+                                                                                <ModalHeader toggle={toggle_103}>
+                                                                                    <img src={img101} className="img-home"/>
+                                                                                    <p className="p-modal">Detalles de <span className="span-modal">ENTRADAS</span>.</p>
+                                                                                </ModalHeader>
+                                                                                <ModalBody>
+                                                                                    <div className="table-overflow">
+                                                                                        <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                            <table className="table-cont-modal">
+                                                                                                <thead>
+                                                                                                <tr className="tr-head-modal">
+                                                                                                    <td className="cell-modal">Descripción</td>
+                                                                                                    <td className="cell-modal">Cantidad</td>
+                                                                                                    <td className="cell-modal">Unitario</td>
+                                                                                                    <td className="cell-modal">Total</td>
+                                                                                                </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                <tr className="">
+                                                                                                    <td className="cell-modal">{SubTotalMoneyM2DescSub1}</td>
+                                                                                                    <td className="cell-modal">{SubTotalTicketsM2Sub1}</td>
+                                                                                                    <td className="cell-modal">s/.{SubTotalTicketsM2UnitSub1}</td>
+                                                                                                    <td className="cell-modal">s/.{SubTotalMoneyM2Sub1}</td>
+                                                                                                </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ModalBody>
+                                                                                <ModalFooter>
+                                                                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                                </ModalFooter>
+                                                                            </Modal>
+
+                                                                            <a key="105" className="display-contents" onClick={() => toggle_105()}>
+                                                                                <tr className="tr-ticket">
+                                                                                    <td className="ticket-icon"><img src={img103} className="ticket-img"/></td>
+                                                                                    <td className="cantidad-ticket">{SubTotalTicketsM2Sub2}</td>
+                                                                                    <td className="precio-ticket">s/. {SubTotalMoneyM2Sub2}</td>
+                                                                                </tr>
+                                                                            </a>
+
+                                                                            <Modal isOpen={modal_105} toggle={toggle_105}>
+                                                                                <ModalHeader toggle={toggle_105}>
+                                                                                    <img src={img103} className="img-home"/>
+                                                                                    <p className="p-modal">Detalles de <span className="span-modal">MOTOS</span>.</p>
+                                                                                </ModalHeader>
+                                                                                <ModalBody>
+                                                                                    <div className="table-overflow">
+                                                                                        <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                            <table className="table-cont-modal">
+                                                                                                <tbody>
+                                                                                                <tr className="tr-head-modal">
+                                                                                                    <td className="cell-modal">Descripción</td>
+                                                                                                    <td className="cell-modal">Cantidad</td>
+                                                                                                    <td className="cell-modal">Unitario</td>
+                                                                                                    <td className="cell-modal">Total</td>
+                                                                                                </tr>
+                                                                                                <tr className="">
+                                                                                                    <td className="cell-modal">{SubTotalMoneyM2DescSub2}</td>
+                                                                                                    <td className="cell-modal">{SubTotalTicketsM2Sub2}</td>
+                                                                                                    <td className="cell-modal">s/.{SubTotalTicketsM2UnitSub2}</td>
+                                                                                                    <td className="cell-modal">s/.{SubTotalMoneyM2Sub2}</td>
+                                                                                                </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </ModalBody>
+                                                                                <ModalFooter>
+                                                                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                                </ModalFooter>
+                                                                            </Modal>
+
+                                                                            <a key="106" className="display-contents" onClick={() => toggle_106()}>
+                                                                                <tr className="tr-ticket">
+                                                                                    <td className="ticket-icon"><img src={img106} className="ticket-img"/></td>
+                                                                                    <td className="cantidad-ticket">{SubTotalTicketsM2}</td>
+                                                                                    <td className="precio-ticket">s/. {SubTotalMoneyM2}</td>
+                                                                                </tr>
+                                                                            </a>
+
+                                                                            <Modal isOpen={modal_106} toggle={toggle_106}>
+                                                                                <ModalHeader toggle={toggle_106}>
+                                                                                    <img src={img106} className="img-home"/>
+                                                                                    <p className="p-modal">Detalles de <span className="span-modal">CUARTOS</span>.</p>
+                                                                                </ModalHeader>
+                                                                                <ModalBody>
+                                                                                    <div className="table-overflow">
+                                                                                        <div className="cont-select-modal table-cont-modal-scroll">
+                                                                                            <table className="table-cont-modal">
+                                                                                                <tbody>
+                                                                                                <tr className="tr-head-modal">
+                                                                                                    <td className="cell-modal">Descripción</td>
+                                                                                                    <td className="cell-modal">Cantidad</td>
+                                                                                                    <td className="cell-modal">Unitario</td>
+                                                                                                    <td className="cell-modal">Total</td>
+                                                                                                </tr>
+                                                                                                <tr className="">
+                                                                                                    <td className="cell-modal">{SubDescM2}</td>
+                                                                                                    <td className="cell-modal">{SubTotalTicketsM2}</td>
+                                                                                                    <td className="cell-modal">s/.{SubUnitM2}</td>
+                                                                                                    <td className="cell-modal">s/.{SubTotalMoneyM2}</td>
+                                                                                                </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </ModalBody>
+                                                                                <ModalFooter>
+                                                                                    <p className="p-modal p-modal-footer"><span className="span-modal span-footer">Desarrollado por N&W Seguridad Total</span></p>
+                                                                                </ModalFooter>
+                                                                            </Modal>
+
+
+                                                                        </div>
+                                                                        <tr>
+                                                                            <td colSpan="5" className="fecha-ticket">
+                                                                                {c.box.Date_start_report.toString().split('T')[0]}
+                                                                                {' ' + dataBase[sedeAdminSelect][1]}</td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </>
+                                                        }
+                                                    </>
+                                                }
+                                            </>
+                                            :
+                                            ''
+                                        }
+                                    </>
+                                }
+
                             </div>:''))}
 
                     <div className="box-prin margin-top-20 display-flex-money bg-fin">
@@ -442,14 +720,46 @@ function Principal() {
                             </ModalHeader>
                             <ModalBody className="body-modal-fechas">
                                 <div className="cont-select-modal">
-                                    {StoreDatos.a_o.map((c, i) => (
-                                        c.box.Id_attender === 'M1' ?
-                                            <div>
-                                                <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
-                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
-                                                </a>
-                                            </div> : ''
-                                    ))}
+                                    {AdminUser === true ?
+                                        <>
+                                            {StoreDatos.a_o.map((c, i) => (
+                                                c.box.Id_user === 0 ?
+                                                    <>
+                                                        {c.box.Id_attender === 'M1' ?
+                                                            <div>
+                                                                <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
+                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                                </a>
+                                                            </div> : ''}
+                                                    </>
+                                                    :
+                                                    ''
+                                            ))}
+                                        </>
+                                        :
+                                        <>
+                                            {StoreDatos.a_o.map((c, i) => (
+                                                c.box.Id_user === 0 ?
+                                                    <>
+                                                        {c.box.Id_attender === 'M1' ?
+                                                            <div>
+                                                                <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
+                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                                </a>
+                                                            </div> : ''}
+                                                    </>
+                                                    :
+                                                    <>
+                                                        {c.box.Id_attender === 'M3' ?
+                                                            <div>
+                                                                <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
+                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                                </a>
+                                                            </div> : ''}
+                                                    </>
+                                            ))}
+                                        </>
+                                    }
                                 </div>
                             </ModalBody>
                             <ModalFooter>
@@ -582,10 +892,10 @@ function Principal() {
                                 <ModalBody className="body-modal-fechas">
                                     <div className="cont-select-modal">
                                         <a onClick={() => setSedeAdminSelect(0)}>
-                                            <input type="submit" className="submit-form submit-form-modal" value="FADIMA"/>
+                                            <input type="submit" className="submit-form submit-form-modal" value="FADIMA(CENTRO)"/>
                                         </a>
                                         <a onClick={() => setSedeAdminSelect(1)}>
-                                            <input type="submit" className="submit-form submit-form-modal" value="YAWI"/>
+                                            <input type="submit" className="submit-form submit-form-modal" value="YAWI(NORTE)"/>
                                         </a>
                                     </div>
                                 </ModalBody>
@@ -605,5 +915,4 @@ function Principal() {
     </>);
 
 }
-
 export default Principal;

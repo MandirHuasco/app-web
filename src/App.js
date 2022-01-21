@@ -127,7 +127,7 @@ class App extends React.Component{
                     </div>
                     <div className="cont-form">
                         <div className="mini-logo-01">
-                            <img src={img001} className="img-mini-logo-01" alt="Image-01" />
+                            <img src={img001} className="img-mini-logo-01" alt="logo" />
                         </div>
                         <div className="cont-form-sub">
                             <form onSubmit={this.Validar}>

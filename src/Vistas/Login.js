@@ -12,9 +12,19 @@ class Login extends  React.Component {
 
     componentDidMount(){
 
-        StoreDatos.c_a('c_d', StoreDatos.a_m['Id_user'])
-        StoreDatos.c_a('c_e', StoreDatos.a_m['Id_business'])
-        StoreDatos.c_a('c_f', StoreDatos.a_n['Id_attender'])
+        if(StoreDatos.a_n[0]) {
+            StoreDatos.c_a('c_d', StoreDatos.a_m[0]['Id_user'])
+            StoreDatos.c_a('c_e', StoreDatos.a_m[0]['Id_business'])
+            StoreDatos.c_a('c_f', StoreDatos.a_n[0]['Id_attender'])
+
+            StoreDatos.c_a('c_d', StoreDatos.a_m[1]['Id_user'])
+            StoreDatos.c_a('c_e', StoreDatos.a_m[1]['Id_business'])
+            StoreDatos.c_a('c_f', StoreDatos.a_n[1]['Id_attender'])
+        } else {
+            StoreDatos.c_a('c_d', StoreDatos.a_m['Id_user'])
+            StoreDatos.c_a('c_e', StoreDatos.a_m['Id_business'])
+            StoreDatos.c_a('c_f', StoreDatos.a_n['Id_attender'])
+        }
 
         Conection.a_n(StoreDatos.a_c[0].g_a, 'pr').then((a) => {
             console.log(a)
