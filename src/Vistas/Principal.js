@@ -15,7 +15,9 @@ import img104 from '../img/home.png';
 import img105 from '../img/fecha.png';
 import img106 from '../img/ticket-004.png';
 import img107 from '../img/barras.png';
-import Reportes from "./Reportes";
+import {Document, Image, Page, PDFViewer, Text, View} from "@react-pdf/renderer";
+import img100 from "../img/head-pdf.png";
+import InvoiceItemsTable from "../Components/PDF-Table/Table-PDF";
 
 const ticket = <FontAwesomeIcon icon={faTicketAlt} />;
 
@@ -150,8 +152,96 @@ function Principal() {
     const [busquedaSecond, setBusquedaSecond]= useState("");
 
     const [fechaSelect, setFechaSelect]= useState("");
-    const [sedeSelect, setSedeSelect]= useState("1");
+    const [sedeSelect, setSedeSelect]= useState("0");
     const [fechaRangoSelect, setFechaRAngoSelect]= useState(fechaRangoInicial);
+
+    //--------REPORTES---------
+
+    const [styleaId, setStyleaId] = useState("nav-bg-select");
+    const [styleAId, setStyleAId] = useState("");
+
+    const [stylebId, setStylebId] = useState("");
+    const [styleBId, setStyleBId] = useState("div-off");
+
+    const [stylecId, setStylecId] = useState("div-off");
+    const [styleCId, setStyleCId] = useState("div-on");
+
+    const changeStyleAId = () => {
+        console.log("menu-action-A");
+
+        setStyleAId("div-on");
+        setStyleaId("nav-bg-select");
+
+        setStyleBId("div-off");
+        setStylebId("");
+    };
+
+    const changeStyleBId = () => {
+        console.log("menu-action-B");
+
+        setStyleAId("div-off");
+        setStyleaId("");
+
+        setStyleBId("div-on");
+        setStylebId("nav-bg-select");
+
+    };
+
+    const changeStyleCId = () => {
+        console.log("menu-action-C");
+
+        setStylecId("div-on");
+        setStyleCId("div-off");
+    };
+
+    const changeStyleDId = () => {
+        console.log("menu-action-C");
+
+        setStylecId("div-off");
+        setStyleCId("div-on");
+    };
+
+    //let id = localStorage.getItem('IdFecha');
+    //let idData = localStorage.getItem('IdData');
+
+
+    const [infoFechasId, setInfoFechasId]= useState([]);
+    const [dataFechasId, setDataFechasId]= useState([]);
+
+    const FechaGetId = async() => {
+
+        await axios.get("http://apita.traker.ga/monitoreo/get_info_data.php?database=" + dataBase[sedeAdminSelect][1] + "&id_caja=" + fechaSelect)
+            .then(response => {
+                setInfoFechasId(response.data.info);
+                setDataFechasId(response.data);
+            }).catch(error=>{
+                console.log(error);
+            })
+    }
+
+    let estado = "";
+
+    if(parseInt(infoFechasId.state) === 1){
+        estado = "Abierto";
+    }else{
+        estado = "Cerrado";
+    }
+
+    let fechCierre = "";
+
+    if(infoFechasId.feh_close === null){
+        fechCierre = "---";
+    }else{
+        fechCierre = infoFechasId.feh_close;
+    }
+
+    let suma = 0;
+
+    dataFechasId.data && dataFechasId.data.map((data) =>(
+        suma = parseInt(data.total) + suma
+    ));
+
+    let idCont = 0;
 
     const FechaGet = async() => {
 
@@ -211,15 +301,10 @@ function Principal() {
         //console.log(JSON.stringify(fechas) + "DESPUEs")
     }
 
-    useEffect(()=>{
-        SedeGet();
-        FechaGet();
-        FechaGetSecond();
-    },[])
-
     useEffect(() => {
 
         function InvoiceClicked(){
+
             if(fechaSelect){
                 localStorage.setItem("IdFecha", fechaSelect)
                 localStorage.setItem("IdData", dataBase[sedeAdminSelect][1])
@@ -227,34 +312,17 @@ function Principal() {
                 //console.log(fechaSelect + "Id-Fecha")
                 //window.open('Reportes', "_blank")
             }
-        }InvoiceClicked();
 
-    }, [fechaSelect])
-
-    useEffect(() => {
-
-        function InvoiceClicked(){
+            FechaGetId();
             SedeGet();
             FechaGet();
             FechaGetSecond();
             setModal_108(false);
-            //console.log(sedeAdminSelect + "SEDE")
+            setModal_101(false);
+            console.log(sedeAdminSelect + "SEDE")
         }InvoiceClicked();
 
-    }, [sedeAdminSelect])
-
-    useEffect(() => {
-
-        function InvoiceClickedSede(){
-            if(sedeSelect){
-                //console.log(sedeSelect + " Id-Sede")
-                setModal_101(false);
-                FechaGet();
-                FechaGetSecond();
-            }
-        }InvoiceClickedSede();
-
-    }, [sedeSelect])
+    }, [sedeSelect, sedeAdminSelect, fechaSelect])
 
     useEffect(() => {
 
@@ -331,7 +399,7 @@ function Principal() {
             <div className="background-image background-image-prin">
             </div>
 
-            <div className="cont-sub-prin">
+            <div className={styleCId + " cont-sub-prin"}>
                 <div className="prin-total">
                     <div className="empresa">
                         {sedeAdminSelect === 0 ?
@@ -716,7 +784,7 @@ function Principal() {
                         <Modal isOpen={modal_107} toggle={toggle_107}>
                             <ModalHeader toggle={toggle_107}>
                                 <img src={img105} className="img-home"/>
-                                <p className="p-modal">Seleccionar <span className="span-modal">rango de fechas</span>.</p>
+                                <p className="p-modal">Seleccionar <span className="span-modal">fecha</span>.</p>
                             </ModalHeader>
                             <ModalBody className="body-modal-fechas">
                                 <div className="cont-select-modal">
@@ -728,7 +796,7 @@ function Principal() {
                                                         {c.box.Id_attender === 'M1' ?
                                                             <div>
                                                                 <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
-                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0]}/>
                                                                 </a>
                                                             </div> : ''}
                                                     </>
@@ -744,7 +812,7 @@ function Principal() {
                                                         {c.box.Id_attender === 'M1' ?
                                                             <div>
                                                                 <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
-                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0]}/>
                                                                 </a>
                                                             </div> : ''}
                                                     </>
@@ -753,7 +821,7 @@ function Principal() {
                                                         {c.box.Id_attender === 'M3' ?
                                                             <div>
                                                                 <a onClick={() => setFechaRAngoSelect(c.box.Date_start_report)}>
-                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0] + " - " + c.box.Date_end_report.toString().split('T')[0]}/>
+                                                                    <input key={c.box.Id_box} type="submit" className="submit-form submit-form-modal" value={c.box.Date_start_report.toString().split('T')[0]}/>
                                                                 </a>
                                                             </div> : ''}
                                                     </>
@@ -821,7 +889,7 @@ function Principal() {
                         <Modal isOpen={modal_101} toggle={toggle_101}>
                             <ModalHeader toggle={toggle_101}>
                                 <img src={img107} className="img-home"/>
-                                <p className="p-modal">Seleccionar <span className="span-modal">local</span>.</p>
+                                <p className="p-modal">Seleccionar <span className="span-modal">barra</span>.</p>
                             </ModalHeader>
                             <ModalBody>
                                 <div className="cont-select-modal">
@@ -861,7 +929,7 @@ function Principal() {
                                     fechasSecond.data.map((fecha) => (
                                         <div key={fecha.id}>
                                             <a onClick={() => setFechaSelect(fecha.id)}>
-                                                <input key={fecha.id} type="submit" className="submit-form submit-form-modal" value={fecha.date_opening}/>
+                                                <input key={fecha.id} onClick={changeStyleCId} type="submit" className="submit-form submit-form-modal" value={fecha.date_opening}/>
                                             </a>
                                         </div>
                                     ))}
@@ -909,7 +977,184 @@ function Principal() {
                 </div>
             </div>
             {fechaSelect === '' ? '' :
-                <Reportes/>
+                <div className={stylecId}>
+                    <div className="App App-prin line-white-top">
+                        <div className="background-image background-image-prin background-image-reportes">
+                        </div>
+
+                        <div className="nav-reporte">
+                            <ul className="ul-reporte">
+                                <li className="li-reporte">
+                                    <a onClick={changeStyleAId} className={styleaId + " a-reporte button-report-icon"}><span className="icon-report"><ion-icon name="document-outline"></ion-icon></span>Web</a>
+                                </li>
+                                <li className="li-reporte">
+                                    <a onClick={changeStyleBId} className={stylebId + " a-reporte"}><span className="icon-report"><ion-icon name="download-outline"></ion-icon></span>Descargar PDF</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className={styleAId + " cont-sub-prin"}>
+                            <div className="prin-total prin-total-report-head">
+                                <div>
+                                    <div className="box-prin">
+                                        <div className="reporte-title">{infoFechasId.name_company}</div>
+                                        <div className="reporte-title-sub">{infoFechasId.number_company}</div>
+
+                                        <div className="reporte-body">
+                                            <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="storefront-outline"></ion-icon></span>Establecimiento:</span> {infoFechasId.establish}</div>
+                                            <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>Estado:</span> {estado}</div>
+                                            <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>Fecha y hora de apertura:</span> {infoFechasId.feh_open}</div>
+                                            <div className="reporte-text-sub"><span className="reporte-span button-fecha-icon"><span className="icon"><ion-icon name="calendar-clear-outline"></ion-icon></span>Fecha y hora de cierre:</span> {fechCierre}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="prin-total-report">
+                                <div>
+                                    <div className="box-prin box-prin-table">
+                                        <table className="table-reportes">
+                                            <thead>
+                                            <tr className="tr-reporte-head">
+                                                <td className="td-reporte-head">Nombre</td>
+                                                <td className="td-reporte-head">Cantidad</td>
+                                                <td className="td-reporte-head">Total</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody className="tbody-reporte">
+                                            {dataFechasId.data &&
+                                            dataFechasId.data.map((data) => (
+                                                <tr key={idCont = idCont + 1}>
+                                                    <td className="td-reporte-body td-text-reporte">{data.name}</td>
+                                                    <td className="td-reporte-body">{parseFloat(data.cantidad)}</td>
+                                                    <td className="td-reporte-body">{data.total}</td>
+                                                </tr>
+                                            ))}
+                                            <tr>
+                                                <td colSpan="2" className="td-reporte td-reporte-body-total">Total</td>
+                                                <td className="td-reporte td-reporte-body-total">s/.{suma}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styleBId + " cont-sub-prin cont-sub-prin-pdf"}>
+                            <PDFViewer style={{width: "100%", height: "90vh", margin: "auto",}}>
+                                <Document>
+                                    <Page
+                                        size="A4"
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                padding: 10,
+                                                borderBottom: 5,
+                                            }}
+                                        >
+                                            <Image
+                                                src={img100}
+                                                alt="random image"
+                                                style={{ maxWidth: "400px", maxHeight: "400" }}
+                                                className="img-cotizacion"
+                                            />
+
+                                            <Text style={{
+                                                color: "#757575",
+                                                textAlign: "center",
+                                                fontSize: 20,
+                                                lineHeight: 1,
+                                                paddingTop: "20px",
+                                                paddingBottom: 5,}}>{infoFechasId.name_company}</Text>
+                                            <Text style={{
+                                                textAlign: "center",
+                                                fontSize: 15,}}>{infoFechasId.number_company}</Text>
+                                        </View>
+
+                                        <View
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                backgroundColor: "white",
+                                                padding: 10,
+                                            }}
+                                        >
+                                            <Text style={{
+                                                color: "#5d4e6e",
+                                                fontSize: 12,
+                                                paddingBottom: 5,}}>Establecimiento: {infoFechasId.establish}</Text>
+
+                                            <Text style={{
+                                                color: "#5d4e6e",
+                                                fontSize: 12,
+                                                paddingBottom: 5,}}>Estado: {estado}</Text>
+
+                                            <Text style={{
+                                                color: "#5d4e6e",
+                                                fontSize: 12,
+                                                paddingBottom: 5,}}>Fecha y hora de apertura: {infoFechasId.feh_open}</Text>
+
+                                            <Text style={{
+                                                color: "#5d4e6e",
+                                                fontSize: 12,
+                                                paddingBottom: 5,}}>Fecha y hora de cierre: {fechCierre}</Text>
+                                        </View>
+
+                                        <View style={{
+                                            position: "relative",
+                                            width: "420px",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}>
+
+                                            <InvoiceItemsTable/>
+
+                                        </View>
+
+                                        <View
+                                            style={{
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                width: '480px',
+                                                height: '40px',
+                                                textAlign: 'center',
+                                                fontStyle: 'bold',
+                                                flexGrow: 1,
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            <Text style={{
+                                                width: '50%',
+                                                color: "#000",
+                                                fontSize: 12,}}>Razón social </Text>
+                                            <Text style={{
+                                                width: '50%',
+                                                color: "#757575",
+                                                fontSize: 12,}}>{infoFechasId.name_company}</Text>
+                                        </View>
+
+                                    </Page>
+                                </Document>
+                            </PDFViewer>
+                        </div>
+                        <div className="button-volver-sede">
+                            <button className="button-fecha button-fecha-icon" onClick={changeStyleDId}>
+                                <span className="icon">
+                                    <ion-icon name="arrow-undo-outline"></ion-icon>
+                                </span>VOLVER
+                            </button>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     </>);

@@ -31,14 +31,12 @@ function InvoiceTableFooter(){
     const id = localStorage.getItem('IdFecha');
     const idData = localStorage.getItem('IdData');
 
-    const [infoFechas, setInfoFechas]= useState([]);
     const [dataFechas, setDataFechas]= useState([]);
 
     const FechaGetId = async() => {
 
         await axios.get("http://apita.traker.ga/monitoreo/get_info_data.php?database=" + idData + "&id_caja=" + id)
             .then(response => {
-                setInfoFechas(response.data.info);
                 setDataFechas(response.data);
             }).catch(error=>{
                 console.log(error);
@@ -53,7 +51,7 @@ function InvoiceTableFooter(){
 
     useEffect(()=>{
         FechaGetId();
-    },[infoFechas])
+    },[id, idData])
 
     return (<>
         <View style={styles.row}>
@@ -62,6 +60,6 @@ function InvoiceTableFooter(){
         </View>
     </>);
 }
-export default InvoiceTableFooter
+export default InvoiceTableFooter;
 
 

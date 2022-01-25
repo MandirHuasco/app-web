@@ -741,6 +741,14 @@ input:checked.check-form:after{
   border-top: 1px solid;
   border-radius: 20px;
 }
+.line-white-top{
+  border-top: 1px solid #fff;
+}
+.button-volver-sede{
+  width: 600px;
+  margin: auto;
+  padding: 20px 0;
+}
 
 @keyframes App-logo-spin {
   from {
@@ -803,6 +811,9 @@ input:checked.check-form:after{
 @media only screen and (max-width: 650px){
   .button-fin{
     width: 100%;
+  }
+  .button-volver-sede{
+    width: 80%;
   }
   .display-block-money{
     display: block;
